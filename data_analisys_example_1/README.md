@@ -43,10 +43,12 @@ jupyter notebook
 NotImplementedError
 ```
 
-You need to modify the file **asyncio.py**
+You need to modify the file **asyncio.py**, you need to insert the following lines of code after the 
+**import asyncio** line:
 
-import asyncio
+```
 import sys
 
 if sys.platform == 'win32':
     asyncio.set_event_loop_policy(asyncio.WindowsSelectorEventLoopPolicy())
+```
