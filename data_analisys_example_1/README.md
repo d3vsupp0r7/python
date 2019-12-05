@@ -3,6 +3,7 @@
 ## Install jupiterlab
 
 1. 
+Upgrade the pip package management
 
 ```
 python -m pip install --upgrade pip
@@ -10,23 +11,23 @@ python -m pip install --upgrade pip
 
 2.
 
+Upgrade the setuptools
+
 ```
 pip install --upgrade setuptools
 ```
 
 3.
 
-```
-pip install --upgrade setuptools
-```
-
-4.
+Install the **jupyterlab** tool
 
 ```
 pip install jupyterlab
 ```
 
-5.
+4.
+
+Run the **jupyter notebook** tool
 
 ```
 jupyter notebook
@@ -42,4 +43,10 @@ jupyter notebook
 NotImplementedError
 ```
 
-You need 
+You need to modify the file **asyncio.py**
+
+import asyncio
+import sys
+
+if sys.platform == 'win32':
+    asyncio.set_event_loop_policy(asyncio.WindowsSelectorEventLoopPolicy())
