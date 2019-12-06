@@ -57,23 +57,14 @@ print(numeric_features.dtypes)
 #plt.matshow(numeric_features.dtypes)
 #plt.show()
 #
-numeric_features.corr()
+corr = numeric_features.corr()
 print(numeric_features.corr())
 plt.matshow(numeric_features.corr())
 plt.show()
 
-rs = np.random.RandomState(0)
-df = pd.DataFrame(rs.rand(10, 10))
-# Create and print correlation matrix:
-corr = df.corr()
-# 'RdBu_r' & 'BrBG' are other good diverging colormaps
-corr.style.background_gradient(cmap='coolwarm')
-print(corr)
-plt.matshow(corr)
-plt.show()
-
 # plot correlation matrix
 fig = plt.figure()
+fig.suptitle('Correlation Matrix', fontsize=20)
 ax = fig.add_subplot(111)
 cax = ax.matshow(corr, vmin=-1, vmax=1)
 fig.colorbar(cax)
@@ -83,4 +74,24 @@ ax.set_yticks(ticks)
 # Retrive column names
 ax.set_xticklabels(list(train.columns))
 ax.set_yticklabels(list(train.columns))
+plt.show()
+
+print("** Sort correlation output and order it descending, [MAX->to->MIN]")
+print(corr['Item_Outlet_Sales'].sort_values(ascending=False))
+
+# ? no effect
+f, ax = plt.subplots(figsize=(12, 9))
+sns.heatmap(corr, vmax=.8, square=True);
+#heatmap = sns.heatmap(corr,annot=True);
+
+## Manage Categorical Predictors ?
+#sns.countplot(train.Item_Fat_Content)
+#plt.show(train.Item_Fat_Content)
+
+#Analize the relationship between "taregt variable" and predictors
+plt.figure(figsize=(12,7))
+plt.xlabel("Item_Weight")
+plt.ylabel("Item_Outlet_Sales")
+plt.title("Item_Weight and Item_Outlet_Sales Analysis")
+plt.plot(train.Item_Weight, train["Item_Outlet_Sales"],'.', alpha = 0.3)
 plt.show()
