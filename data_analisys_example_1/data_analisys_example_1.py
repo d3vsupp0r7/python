@@ -87,6 +87,7 @@ sns.heatmap(corr, vmax=.8, square=True);
 ## Manage Categorical Predictors ?
 #sns.countplot(train.Item_Fat_Content)
 #plt.show(train.Item_Fat_Content)
+# Working but overlay on same sns graph -> sns.countplot(train.Item_Fat_Content)
 
 #Analize the relationship between "taregt variable" and predictors
 plt.figure(figsize=(12,7))
@@ -95,3 +96,80 @@ plt.ylabel("Item_Outlet_Sales")
 plt.title("Item_Weight and Item_Outlet_Sales Analysis")
 plt.plot(train.Item_Weight, train["Item_Outlet_Sales"],'.', alpha = 0.3)
 plt.show()
+
+#Analisys on item visibility on store
+plt.figure(figsize=(12,7))
+plt.xlabel("Item_Visibility")
+plt.ylabel("Item_Outlet_Sales")
+plt.title("Item_Visibility and Item_Outlet_Sales Analysis")
+plt.plot(train.Item_Visibility, train["Item_Outlet_Sales"],'.', alpha = 0.3)
+plt.show()
+
+# Impact: Outlet_Establishment_Year and Item_Outlet_Sales analysis
+print("** Impact: Outlet_Establishment_Year and Item_Outlet_Sales analysis ")
+Outlet_Establishment_Year_pivot = train.pivot_table(index='Outlet_Establishment_Year', values="Item_Outlet_Sales", aggfunc=np.median)
+Outlet_Establishment_Year_pivot.plot(kind='bar', color='blue',figsize=(12,7))
+plt.xlabel("Outlet_Establishment_Year")
+plt.ylabel("Sqrt Item_Outlet_Sales")
+plt.title("Impact of Outlet_Establishment_Year on Item_Outlet_Sales")
+plt.xticks(rotation=0)
+plt.show()
+
+# Impact: Item_Fat_Content onItem_Outlet_Sales analysis
+print("** Impact: Item_Fat_Content onItem_Outlet_Sales analysis ")
+Item_Fat_Content_pivot = train.pivot_table(index='Item_Fat_Content', values="Item_Outlet_Sales", aggfunc=np.median)
+Item_Fat_Content_pivot.plot(kind='bar', color='blue',figsize=(12,7))
+plt.xlabel("Item_Fat_Content")
+plt.ylabel("Item_Outlet_Sales")
+plt.title("Impact of Item_Fat_Content on Item_Outlet_Sales")
+plt.xticks(rotation=0)
+plt.show()
+
+# Impact: Outlet_Identifier on Item_Outlet_Sales analysis
+print("** Outlet_Identifier on Item_Outlet_Sales analysis ")
+Outlet_Identifier_pivot = train.pivot_table(index='Outlet_Identifier', values="Item_Outlet_Sales", aggfunc=np.median)
+Outlet_Identifier_pivot.plot(kind='bar', color='blue',figsize=(12,7))
+plt.xlabel("Outlet_Identifier")
+plt.ylabel("Item_Outlet_Sales")
+plt.title("Impact of Outlet_Identifier on Item_Outlet_Sales")
+plt.xticks(rotation=0)
+plt.show()
+
+# ? no effect
+# train.pivot_table(values='Outlet_Type', columns='Outlet_Identifier',aggfunc=lambda x:x.mode())
+# Impact: Outlet_Size on Item_Outlet_Sales analysis
+print("** Impact: Outlet_Size on Item_Outlet_Sales analysis ")
+Outlet_Size_pivot = train.pivot_table(index='Outlet_Size', values="Item_Outlet_Sales", aggfunc=np.median)
+Outlet_Size_pivot.plot(kind='bar', color='blue',figsize=(12,7))
+plt.xlabel("Outlet_Size")
+plt.ylabel("Item_Outlet_Sales")
+plt.title("Impact of Outlet_Size on Item_Outlet_Sales")
+plt.xticks(rotation=0)
+plt.show()
+
+# Impact: Outlet_Type on Item_Outlet_Sales analysis
+print("** Impact: Outlet_Type on Item_Outlet_Sales analysis ")
+Outlet_Type_pivot = train.pivot_table(index='Outlet_Type', values="Item_Outlet_Sales", aggfunc=np.median)
+Outlet_Type_pivot.plot(kind='bar', color='blue',figsize=(12,7))
+plt.xlabel("Outlet_Type ")
+plt.ylabel("Item_Outlet_Sales")
+plt.title("Impact of Outlet_Type on Item_Outlet_Sales")
+plt.xticks(rotation=0)
+plt.show()
+
+# Impact: Outlet_Location_Type  on Item_Outlet_Sales analysis
+print("** Impact: Outlet_Location_Type  on Item_Outlet_Sales analysis ")
+Outlet_Location_Type_pivot = train.pivot_table(index='Outlet_Location_Type', values="Item_Outlet_Sales", aggfunc=np.median)
+Outlet_Location_Type_pivot.plot(kind='bar', color='blue',figsize=(12,7))
+plt.xlabel("Outlet_Location_Type")
+plt.ylabel("Item_Outlet_Sales")
+plt.title("Impact of Outlet_Location_Type on Item_Outlet_Sales")
+plt.xticks(rotation=0)
+plt.show()
+
+# Concat Dataset
+print("** Dataset Concatenation ")
+train['source']='train'
+test['source']='test'
+data = pd.concat([train,test], ignore_index = True)
+print(train.shape, test.shape, data.shape)
