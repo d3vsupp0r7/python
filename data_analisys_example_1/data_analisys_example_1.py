@@ -178,3 +178,9 @@ print(train.shape, test.shape, data.shape)
 print("** Check the percentage of null values per variable ")
 data.isnull().sum()/data.shape[0]*100 #show values in percentage
 print(data.isnull().sum()/data.shape[0]*100)
+
+# mean of NaN/Missing values
+#aggfunc is mean by default! Ignores NaN by default
+print("** mean of NaN/Missing values - for values Item_Weight")
+item_avg_weight = data.pivot_table(values='Item_Weight', index='Item_Identifier')
+print(item_avg_weight)
