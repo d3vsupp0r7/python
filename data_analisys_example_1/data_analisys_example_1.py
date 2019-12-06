@@ -173,3 +173,8 @@ train['source']='train'
 test['source']='test'
 data = pd.concat([train,test], ignore_index = True)
 print(train.shape, test.shape, data.shape)
+
+# Check the percentage of null values per variable
+print("** Check the percentage of null values per variable ")
+data.isnull().sum()/data.shape[0]*100 #show values in percentage
+print(data.isnull().sum()/data.shape[0]*100)
