@@ -3,6 +3,9 @@ import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
 import seaborn as sns
+#Import mode function:
+from scipy.stats import mode
+
 #%matplotlib inline
 from statsmodels.compat import numpy
 
@@ -193,7 +196,7 @@ print(data[:][data['Item_Identifier'] == 'DRI11'])
 ''' ------ '''
 
 # Example of function declaration
-# Scope to assign mean to NaN values ?
+## Scope to assign mean to NaN values ?
 def impute_weight(cols):
     Weight = cols[0]
     Identifier = cols[1]
@@ -207,3 +210,22 @@ print('Orignal #missing: %d' % sum(data['Item_Weight'].isnull()))
 data['Item_Weight'] = data[['Item_Weight', 'Item_Identifier']].apply(impute_weight, axis=1).astype(float)
 print('Final #missing: %d' % sum(data['Item_Weight'].isnull()))
 ''' ------ '''
+# Mean for text values
+## Determing the mode for each
+outlet_size_mode = data.pivot_table(values='Outlet_Size', columns='Outlet_Type',aggfunc=lambda x:x.mode())
+print(outlet_size_mode)
+
+def impute_size_mode(cols):
+    Size = cols[0]
+    Type = cols[1]
+    if pd.isnull(Size):
+        return outlet_size_mode.loc['Outlet_Size'][outlet_size_mode.columns == Type][0]
+    else:
+        return Size
+
+print ('Orignal #missing: %d'%sum(data['Outlet_Size'].isnull()))
+data['Outlet_Size'] = data[['Outlet_Size','Outlet_Type']].apply(impute_size_mode,axis=1)
+print ('Final #missing: %d'%sum(data['Outlet_Size'].isnull()))
+
+##############################################
+############  FEATURE ENGINE SECTION #########
