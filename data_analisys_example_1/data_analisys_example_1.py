@@ -181,6 +181,29 @@ print(data.isnull().sum()/data.shape[0]*100)
 
 # mean of NaN/Missing values
 #aggfunc is mean by default! Ignores NaN by default
+# Imputing Missing Values
+'''
+pivot_table() is used to calculate, aggregate, and summarize your data.
+'''
 print("** mean of NaN/Missing values - for values Item_Weight")
 item_avg_weight = data.pivot_table(values='Item_Weight', index='Item_Identifier')
 print(item_avg_weight)
+print(data[:][data['Item_Identifier'] == 'DRI11'])
+
+''' ------ '''
+
+# Example of function declaration
+# Scope to assign mean to NaN values ?
+def impute_weight(cols):
+    Weight = cols[0]
+    Identifier = cols[1]
+
+    if pd.isnull(Weight):
+        return item_avg_weight['Item_Weight'][item_avg_weight.index == Identifier]
+    else:
+        return Weight
+
+print('Orignal #missing: %d' % sum(data['Item_Weight'].isnull()))
+data['Item_Weight'] = data[['Item_Weight', 'Item_Identifier']].apply(impute_weight, axis=1).astype(float)
+print('Final #missing: %d' % sum(data['Item_Weight'].isnull()))
+''' ------ '''
