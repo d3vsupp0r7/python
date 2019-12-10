@@ -229,3 +229,50 @@ print ('Final #missing: %d'%sum(data['Outlet_Size'].isnull()))
 
 ##############################################
 ############  FEATURE ENGINE SECTION #########
+
+#Creates pivot table with Outlet_Type and the mean of #Item_Outlet_Sales. Agg function is by default mean()
+print("*** FEATURE ENGINEERING SECTION ***")
+print("* Data relation between Outlet_Type and Item_Outlet_Sales")
+print( data.pivot_table(values='Item_Outlet_Sales', columns='Outlet_Type') )
+
+print("* Item_Visibility analysis")
+visibility_item_avg = data.pivot_table(values='Item_Visibility',index='Item_Identifier')
+def impute_visibility_mean(cols):
+    visibility = cols[0]
+    item = cols[1]
+    if visibility == 0:
+        result = visibility_item_avg['Item_Visibility'] [visibility_item_avg.index == item]
+        return result
+    else:
+        return visibility
+
+print ('Original #zeros: %d'%sum(data['Item_Visibility'] == 0))
+data['Item_Visibility'] = data[['Item_Visibility','Item_Identifier']].apply(impute_visibility_mean,axis=1).astype(float)
+print ('Final #zeros: %d'%sum(data['Item_Visibility'] == 0))
+
+print('* Determine the years of operation of a store')
+data['Outlet_Years'] = 2013 - data['Outlet_Establishment_Year']
+data['Outlet_Years'].describe()
+print(data['Outlet_Years'].describe())
+
+print('## Combination of feature example based on Item_Type ##')
+
+#Get the first two characters of ID:
+data['Item_Type_Combined'] = data['Item_Identifier'].apply(lambda x: x[0:2])
+#Rename them to more intuitive categories:
+data['Item_Type_Combined'] = data['Item_Type_Combined'].map({'FD':'Food',
+                                                             'NC':'Non-Consumable',
+                                                             'DR':'Drinks'})
+data['Item_Type_Combined'].value_counts()
+print(data['Item_Type_Combined'].value_counts())
+
+print('## Renaming of feature based on Item_Fat_Content ##')
+
+#Change categories of low fat:
+print('Original Categories:')
+print(data['Item_Fat_Content'].value_counts())
+print('\nModified Categories:')
+data['Item_Fat_Content'] = data['Item_Fat_Content'].replace({'LF':'Low Fat',
+                                                             'reg':'Regular',
+                                                            'low fat':'Low Fat'})
+print(data['Item_Fat_Content'].value_counts())
