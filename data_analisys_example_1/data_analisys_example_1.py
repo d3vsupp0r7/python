@@ -5,6 +5,14 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 #Import mode function:
 from scipy.stats import mode
+from sklearn.preprocessing import LabelEncoder
+'''
+from sklearn import cross_validation, metrics
+cross_validation is deprecated
+'''
+from sklearn.model_selection import cross_validate
+from sklearn.model_selection import cross_val_score
+from sklearn import metrics
 
 #%matplotlib inline
 from statsmodels.compat import numpy
@@ -284,7 +292,7 @@ print(data['Item_Fat_Content'].value_counts())
 
 ##############################################
 ############  FEATURE TRANSFORMATION #########
-print("###  FEATURE TRANSFORMATION ###")
+
 '''
 We can create a new variable that show us the importance given to a product in a given store according to the mean of
 significance given to the same product in all other stores.
@@ -294,5 +302,71 @@ data['Item_Visibility_MeanRatio'] = data.apply(func,axis=1).astype(float)
 data['Item_Visibility_MeanRatio'].describe()
 print(data['Item_Visibility_MeanRatio'].describe())
 
+## Manage categorical data - Example
+le = LabelEncoder()#New variable for outlet
+data['Outlet'] = le.fit_transform(data['Outlet_Identifier'])
+var_mod = ['Item_Fat_Content','Outlet_Location_Type','Outlet_Size','Item_Type_Combined','Outlet_Type','Outlet']
 
+for i in var_mod:
+    data[i] = le.fit_transform(data[i])
+    print(data[i])
 
+##############################################
+############    EXPORTING DATA       #########
+#Drop the columns which have been converted to different types:
+data.drop(['Item_Type','Outlet_Establishment_Year'],axis=1,inplace=True)
+#Divide into test and train:
+train = data.loc[data['source']=="train"]
+test = data.loc[data['source']=="test"]
+#Drop unnecessary columns:
+test.drop(['Item_Outlet_Sales','source'],axis=1,inplace=True)
+train.drop(['source'],axis=1,inplace=True)
+#Export files as modified versions:
+train.to_csv("data/train_modified.csv",index=False)
+test.to_csv("data/test_modified.csv",index=False)
+
+##############################################
+############    MODEL BUILDING       #########
+train_df = pd.read_csv('data/train_modified.csv')
+test_df = pd.read_csv('data/test_modified.csv')
+
+# Define target and ID columns:
+target = 'Item_Outlet_Sales'
+IDcol = ['Item_Identifier', 'Outlet_Identifier']
+
+print("######### Init model fit analysis #########")
+def modelfit(alg, dtrain, dtest, predictors, target, IDcol, filename):
+    # Fit the algorithm on the data
+    alg.fit(dtrain[predictors], dtrain[target])
+
+    # Predict training set:
+    dtrain_predictions = alg.predict(dtrain[predictors])
+
+    # Remember the target had been normalized
+    Sq_train = (dtrain[target]) ** 2
+
+    # Perform cross-validation:
+#    cv_score = cross_validation.cross_val_score(alg, dtrain[predictors], Sq_train, cv=20, scoring='neg_mean_squared_error')
+    ## ? to verify sobstutution of oldes lib to the new
+    cv_score = cross_val_score(alg, dtrain[predictors], Sq_train, cv=20,scoring='neg_mean_squared_error')
+    cv_score = np.sqrt(np.abs(cv_score))
+
+    # Print model report:
+    print("\nModel Report")
+    print("RMSE : %.4g" % np.sqrt(metrics.mean_squared_error(Sq_train.values, dtrain_predictions)))
+    print("CV Score : Mean - %.4g | Std - %.4g | Min - %.4g | Max - %.4g" % (
+    np.mean(cv_score), np.std(cv_score), np.min(cv_score), np.max(cv_score)))
+
+    # Predict on testing data:
+    dtest[target] = alg.predict(dtest[predictors])
+
+    # Export submission file:
+    IDcol.append(target)
+    submission = pd.DataFrame({x: dtest[x] for x in IDcol})
+    submission.to_csv(filename, index=False)
+
+print("### 1. Model fit analysis - Linear Regression Model ###")
+from sklearn.linear_model import LinearRegression
+LR = LinearRegression(normalize=True)
+predictors = train_df.columns.drop(['Item_Outlet_Sales','Item_Identifier','Outlet_Identifier'])
+modelfit(LR, train_df, test_df, predictors, target, IDcol, 'LR.csv')
