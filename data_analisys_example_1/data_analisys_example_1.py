@@ -229,7 +229,7 @@ print ('Final #missing: %d'%sum(data['Outlet_Size'].isnull()))
 
 ##############################################
 ############  FEATURE ENGINE SECTION #########
-
+print("###  FEATURE ENGINE SECTION ###")
 #Creates pivot table with Outlet_Type and the mean of #Item_Outlet_Sales. Agg function is by default mean()
 print("*** FEATURE ENGINEERING SECTION ***")
 print("* Data relation between Outlet_Type and Item_Outlet_Sales")
@@ -276,3 +276,23 @@ data['Item_Fat_Content'] = data['Item_Fat_Content'].replace({'LF':'Low Fat',
                                                              'reg':'Regular',
                                                             'low fat':'Low Fat'})
 print(data['Item_Fat_Content'].value_counts())
+
+print('## Subcategory of feature based on Item_Fat_Content ##')
+data.loc[data['Item_Type_Combined']=="Non-Consumable",'Item_Fat_Content'] = "Non-Edible"
+data['Item_Fat_Content'].value_counts()
+print(data['Item_Fat_Content'].value_counts())
+
+##############################################
+############  FEATURE TRANSFORMATION #########
+print("###  FEATURE TRANSFORMATION ###")
+'''
+We can create a new variable that show us the importance given to a product in a given store according to the mean of
+significance given to the same product in all other stores.
+'''
+func = lambda x: x['Item_Visibility']/visibility_item_avg['Item_Visibility'][visibility_item_avg.index == x['Item_Identifier']][0]
+data['Item_Visibility_MeanRatio'] = data.apply(func,axis=1).astype(float)
+data['Item_Visibility_MeanRatio'].describe()
+print(data['Item_Visibility_MeanRatio'].describe())
+
+
+
