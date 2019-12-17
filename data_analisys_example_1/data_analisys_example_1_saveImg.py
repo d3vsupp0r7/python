@@ -1,3 +1,5 @@
+from itertools import groupby
+
 import matplotlib
 import pandas as pd
 import numpy as np
@@ -27,6 +29,14 @@ warnings.filterwarnings("ignore")
 train = pd.read_csv("data/Train.csv")
 test = pd.read_csv("data/Test.csv")
 
+# Graph data constants
+graph_index = 1
+img_ext = '.png'
+heatmap_img_type_ref = 'heatmap_'
+histogram_img_type_ref = 'histogram_'
+
+##
+
 print("** Columns info **")
 print(train.columns)
 print("** Head info **")
@@ -36,7 +46,7 @@ print(train.info())
 print("** Describe data **")
 print(train.describe())
 
-#Check for duplicates
+# Check for duplicates
 print("** Check for duplicates **")
 idsUnique = len(set(train.Item_Identifier))
 idsTotal = train.shape[0]
@@ -54,9 +64,15 @@ plt.xlabel("Item_Outlet_Sales")
 plt.ylabel("Number of Sales")
 plt.title("Item_Outlet_Sales Distribution")
 # Important note: to save picture file, first use savefig() method and then use show() to show graph.
+#print("Graph index: " + graph_index)
+print( "{} - {}".format("Graph index: ", graph_index) )
 plt.savefig('data/fig_1.png')
 plt.show()
-
+# Python not use this operator (++): graph_index++
+graph_index += 1
+# print("Graph index increment: " + graph_index)
+print("{} - {}".format("Graph index increment: ", graph_index) )
+plt.savefig('data/fig_' + str(graph_index) + '.png')
 
 # Skew and kurtosis
 print("** Skew and kurtosis")
