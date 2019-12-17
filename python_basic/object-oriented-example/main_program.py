@@ -14,4 +14,10 @@ NameError: name 'Employee' is not defined
 #id, name,surname,gender, city, salary
 emp1 = Employee(1,'aName','aSurname','M','aCity',2000.00)
 
+''' - '''
 print(emp1.fullname())
+emp1.__name = 'NameChanged'
+print(emp1.__name)
+print(emp1.fullname())
+print(emp1.__name)
+''' - '''
