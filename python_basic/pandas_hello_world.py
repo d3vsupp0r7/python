@@ -225,3 +225,7 @@ print('-) **IMPO** MASK : get all the original rows that satisfied the mask filt
 origin_ds_from_mask = iris_pd_dataset[long_petal_mask]
 print(origin_ds_from_mask.head())
 
+print('-) **IMPO** MASK : Massive modify a DataSet. Use mask to modify a categorical variable')
+iris_pd_dataset_mask_work = iris_pd_dataset.copy()
+iris_pd_dataset_mask_work [iris_pd_dataset_mask_work["species"]=="setosa"] = "undefined"
+print(iris_pd_dataset_mask_work["species"].unique())
