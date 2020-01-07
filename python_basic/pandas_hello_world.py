@@ -124,6 +124,30 @@ print(Y_col_rem.head())
 
 print(' -) Remove a row by index. Remove the first row: index[0]')
 Y_drop_sample = iris_pd_dataset.head()
+print('ORIGINAL DATASET')
 print(Y_drop_sample)
 drop_out = Y_drop_sample.drop(Y_drop_sample.index[0])
 print(drop_out)
+
+print(' -) Remove a row observation. This will remove second and third row')
+drop_out = Y_drop_sample.drop([1,2])
+print(drop_out)
+
+print(' -) Remove last n=-3 rows')
+drop_out = Y_drop_sample[:-3]
+print(drop_out)
+
+print(' -) Remove others rows, take only n=1 row')
+drop_out = Y_drop_sample[:1]
+print(drop_out)
+
+print('** Pandas: Find examples on dataset **')
+print(' -) Find indexes of DataFrame thath contains numbers')
+indexNames = Y_drop_sample[ Y_drop_sample['sepal_length'] == 5.1 ].index
+print(indexNames)
+
+indexNames = Y_drop_sample[ Y_drop_sample['petal_length'] == 1.4 ].index
+print(indexNames)
+
+indexNames = Y_drop_sample[ (Y_drop_sample['sepal_width'] >= 3.0) & (Y_drop_sample['sepal_width'] <= 3.3) ].index
+print(indexNames)
