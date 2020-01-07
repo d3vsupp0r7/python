@@ -94,6 +94,10 @@ print(' -) info as a attribute -> print a dataset')
 print(iris_pd_dataset.info)
 
 print('** Pandas: Working with datasets')
+print("Iris dataset dimension info: " + str(iris_pd_dataset.shape) )
+# Select only one column from dataset
+Y = iris_pd_dataset['sepal_length']
+
 print(' -) Get all column values of: sepal_length')
 Y =  iris_pd_dataset['sepal_length']
 print(Y)
@@ -118,7 +122,7 @@ print('iris_pd_dataset is of type: ' + str(type(iris_pd_dataset)) )
 
 print(' -) REMOVE A COLUMN From Dataset: drop()')
 # drop require the axis parameter
-# IMPO: The axis parameter
+# IMPO: The axis parameter means axis=0 refers to rows, axis=1 refers to columns
 Y_col_rem = iris_pd_dataset.drop("species", axis=1)
 print(Y_col_rem.head())
 
@@ -142,7 +146,7 @@ drop_out = Y_drop_sample[:1]
 print(drop_out)
 
 print('** Pandas: Find examples on dataset **')
-print(' -) Find indexes of DataFrame thath contains numbers')
+print(' -) Find indexes of DataFrame that contains numbers')
 indexNames = Y_drop_sample[ Y_drop_sample['sepal_length'] == 5.1 ].index
 print(indexNames)
 
@@ -151,3 +155,42 @@ print(indexNames)
 
 indexNames = Y_drop_sample[ (Y_drop_sample['sepal_width'] >= 3.0) & (Y_drop_sample['sepal_width'] <= 3.3) ].index
 print(indexNames)
+
+print('** Pandas: Axis examples **')
+'''
+IND    a    b 
+0      10   22  = 32
+1      30   44  = 74
+2      60   55  = 115
+3      80   77  = 157
+4      90  101  = 191
+_________________
+      270  299
+'''
+srs_a = pd.Series([10,30,60,80,90])
+srs_b = pd.Series([22, 44, 55, 77, 101])
+df = pd.DataFrame({'a': srs_a, 'b': srs_b})
+print(' -) Sum on axis=0. We want operate on columns')
+print(df.sum(axis=0))
+print(' -) Sum on axis=1. We want to operate on rows')
+print(df.sum(axis=1))
+
+print('** Pandas: Find examples on dataset **')
+
+print('** Pandas: LOC and ILOC **')
+#Copy a dataset
+Y_drop_sample_copy = Y_drop_sample.copy()
+# Shuffle
+Y_drop_sample_copy = Y_drop_sample.sample(frac=1)
+print(Y_drop_sample_copy.head())
+
+print('-) ILOC **')
+print(Y_drop_sample_copy.iloc[3])
+print(Y_drop_sample_copy.iloc[3])
+
+print('-) LOC **')
+print(Y_drop_sample_copy.loc[0])
+print('-) LOC: value on column name')
+print(Y_drop_sample_copy.loc[0,"species"])
+
+
