@@ -220,3 +220,8 @@ Masks are an array of boolean values for which a condition is met.
 print('-) MASK Example: get all petal_lenght Z of petal_length_mean')
 long_petal_mask = iris_pd_dataset["petal_length"] > iris_pd_dataset["petal_length"].mean()
 print(long_petal_mask)
+
+print('-) **IMPO** MASK : get all the original rows that satisfied the mask filter')
+origin_ds_from_mask = iris_pd_dataset[long_petal_mask]
+print(origin_ds_from_mask.head())
+
