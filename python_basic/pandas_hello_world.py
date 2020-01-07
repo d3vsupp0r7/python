@@ -94,7 +94,21 @@ print(' -) info as a attribute -> print a dataset')
 print(iris_pd_dataset.info)
 
 print('** Pandas: Working with datasets')
-print("Iris dataset dimension info: " + str(iris_pd_dataset.shape) )
+print(" -) Iris dataset dimension info: " + str(iris_pd_dataset.shape) )
+'''
+Dataset RowsxCols
+Rows: Observations
+Cols: Features
+
+'''
+print(" -) Get basic statistical information on dataset ")
+print(iris_pd_dataset.describe())
+
+print(" -) Get basic statistical information on specific dataset feature")
+print('Variance: ' + str(iris_pd_dataset['sepal_length'].var()) )
+print('Max: ' + str(iris_pd_dataset['sepal_length'].max()) )
+print('Min: ' + str(iris_pd_dataset['sepal_length'].min()) )
+
 # Select only one column from dataset
 Y = iris_pd_dataset['sepal_length']
 
@@ -144,6 +158,11 @@ print(drop_out)
 print(' -) Remove others rows, take only n=1 row')
 drop_out = Y_drop_sample[:1]
 print(drop_out)
+
+print("** Working with categorical feature feature **")
+print(" -) Get a unique list of categorical feature on dataset")
+categorical_feature_species = iris_pd_dataset["species"].unique()
+print(categorical_feature_species)
 
 print('** Pandas: Find examples on dataset **')
 print(' -) Find indexes of DataFrame that contains numbers')
