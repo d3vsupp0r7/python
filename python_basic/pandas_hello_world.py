@@ -212,4 +212,11 @@ print(Y_drop_sample_copy.loc[0])
 print('-) LOC: value on column name')
 print(Y_drop_sample_copy.loc[0,"species"])
 
-
+#
+print('** Python MASK **')
+'''
+Masks are an array of boolean values for which a condition is met.
+'''
+print('-) MASK Example: get all petal_lenght Z of petal_length_mean')
+long_petal_mask = iris_pd_dataset["petal_length"] > iris_pd_dataset["petal_length"].mean()
+print(long_petal_mask)
