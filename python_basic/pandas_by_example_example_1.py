@@ -20,7 +20,7 @@ print('** Datataset loaded = ' + ds_filename)
 print('** Datataset HEAD info ')
 print(pd_dataset.head())
 print('** Datataset TAIL info ')
-print(pd_dataset.head())
+print(pd_dataset.tail())
 
 print('** Datataset Basic statistic info ')
 print(pd_dataset.describe())
@@ -87,7 +87,7 @@ column_name = "petal_length"
 working_ds_nan.loc[sample_data,column_name] = None
 # Sum number of elements that are null into column
 result = working_ds_nan[column_name].isnull().sum()
-print(result)
+print('Sum of null values: ' + str(result) )
 
 print(' -) Manage invalid values => fillna() ')
 mean_petal_length = working_ds_nan[column_name].mean()
@@ -101,13 +101,24 @@ result = working_ds_nan[column_name].fillna(mean_petal_length)
 
 2) Use inplace parameter
 '''
-print(' Sample 1')
+print(' Sample 1: Using fillna() with assign')
 result = working_ds_nan[column_name].fillna(mean_petal_length)
 print(result.head())
 
-print(' Sample 2')
+print(' Sample 2: Using fillna() with inplace')
 print('     Sample 2 - Origin DS')
 print(working_ds_nan.head())
 working_ds_nan[column_name].fillna(mean_petal_length, inplace=True)
 print('     Sample 2 with inplace')
 print(working_ds_nan.head())
+
+## Use of matplotlib ##
+print('*** USE OF matplotlib Library ***')
+print('   -)  matplotlib.pyplot ')
+import matplotlib.pyplot as plt
+print(' -)  Original dataset plotting')
+x_axis_col_name = 'sepal_length'
+y_axis_col_name = 'sepal_width'
+print('     -) Plot as scatter plot')
+pd_dataset.plot(x=x_axis_col_name, y=y_axis_col_name,kind='scatter')
+plt.show()
