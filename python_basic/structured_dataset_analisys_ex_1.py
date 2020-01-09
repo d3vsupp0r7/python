@@ -30,6 +30,20 @@ print(pd_dataset.head())
 pd_dataset[ordinal_feature] = pd_dataset[ordinal_feature].map(size_mapping)
 print('  Mapped DS  ')
 print(pd_dataset.head())
+print(' 2.1) Using numpy for mapping ordinal_categorical_values => to  =>  business_custom_mapping')
+'''
+-> IMPO: import dataset using index_col=0
+-) use of vectorize
+'''
+pd_dataset = pd.read_csv(ds_filename,index_col=0)
+X=pd_dataset.values
+print(' Origin DS')
+print(X)
+fmap = np.vectorize(lambda t:size_mapping[t])
+X[:,0] = fmap(X[:,0])
+print(' Mapped DS')
+print(X)
+
 
 
 print('-) Manage nominal variables')
