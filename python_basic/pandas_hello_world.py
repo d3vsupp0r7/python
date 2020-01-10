@@ -4,6 +4,64 @@ import numpy as np
 import pandas as pd
 
 '''
+* Python internals: import and from for libraries usage
+** import statement
+
+Syntax: import pandas as pd
+
+The import statements do a lot under the hood to import file or module.  This statement is case sensitive.
+First, they look for your module or package in sys.modules, where Python stores your previously imported code. 
+    If Python cannot find the module there, it will then search through the Python Standard Library for it. 
+    If Python still cannot find the module, it will go through your entire storage space, starting with the current 
+        directory and the ones listed in your system.path. 
+        If the module is found in these places, it will add the module to your program, 
+            otherwise, it will give a ModuleNotFoundError.
+
+** from statement
+Syntax: from mypackage import mymodule
+
+In this format, you specify both the module or code you want along with where it is. 
+You put the name of your code, module, or subpackage for mymodule, and its location for mypackage. 
+Such an import statement is great if you only want to import some of the code from the mentioned package, 
+and not the package itself.
+
+You can even rename the module by including the as keyword.
+You can also use the asterisk (*) as a wild card. The following statement will import every
+function and property contained in the math package.
+As example: from math import *
+
+** Absolute Imports
+Statements: from package1.firstmodule import firstmodule
+        OR: import package1.secondmodule.myfunction
+        
+Absolute imports include the entire path to your script, starting with the program's root folder. 
+While you must separate each folder by a period, you can have it be as long as you need it.        
+
+** Relative imports
+With relative imports, you only specify where your resources are relative to the current code file. You can do this
+either implicitly or explicitly, even though implicit relative imports were removed in Python 3.
+
+As for the syntax, relative imports make use of dot notation. Single dots represent the directory of the current script. 
+Two dots represent the parent folder. Three dots mean the grandparent, and so forth. 
+
+    * Relative Explicit imports
+    Syntax: import other
+            from . import some_class
+            from .subA import sa1
+            
+    * Relative Implicit imports 
+    Syntax: from .some_module import some_class
+            import some_function
+            import subA.sa1
+
+* SOME BEST PRACTICES *
+Unless you are working on a large project with several layers of sub-packages, you should always use absolute imports. 
+That way, your code will be easily understood by anyone that looks at it, including yourself if you got back to it to 
+update it later. Even if you do have long paths, you should still try to write your program to only use absolute 
+statements to simplify your code and your life.
+'''
+
+'''
 Series:
 Series is a one-dimensional array, which can hold any type of data, 
 such as integers, floats, strings, and Python objects too.
