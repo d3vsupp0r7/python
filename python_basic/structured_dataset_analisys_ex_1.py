@@ -189,4 +189,28 @@ print(feature_data_numpy_array[:5])
 print(' DS analisys')
 print(pd_ds.describe())
 
-pd_ds_norm[features_name_array] = (to_norm- )
+ps_ds_norm = ps_ds_copy[features_name_array] = (to_norm - to_norm.min()) / (to_norm.max() - to_norm.min())
+
+print(' DS normalized')
+print(ps_ds_norm.head())
+
+print("*** Normalize numpy array with sklearn")
+from sklearn.preprocessing import MinMaxScaler
+print(' -) Use of MinMaxScaler')
+
+mms = MinMaxScaler()
+X_norm = feature_data_numpy_array.copy()
+X_norm = mms.fit_transform(X_norm)
+print(X_norm[:5])
+
+print("*** Standardization numpy array with sklearn")
+X_std = pd_ds.copy()
+to_std = X_std[features_name_array]
+X_std[features_name_array] = (to_std-to_std.mean())/to_std.std()
+print(X_std[:5])
+
+print("*** Standardization numpy array with sklearn: StandardScaler")
+from sklearn.preprocessing import StandardScaler
+
+X_sklearn_std = feature_data_numpy_array.copy()
+ss = StandardScaler()
