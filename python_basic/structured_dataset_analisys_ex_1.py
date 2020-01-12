@@ -2,6 +2,10 @@ from asynchat import simple_producer
 
 import pandas as pd
 import numpy as np
+import sklearn
+
+print('The pandas version is {}.'.format(pd.__version__))
+print('The numpy version is {}.'.format(np.__version__))
 
 ds_filename = "pandas_dataset_examples/shirts_structured_ds.csv"
 
@@ -59,6 +63,8 @@ To operate on numpy array manipulation for ONE-HOT ENCODING operation we need to
 '''
 from sklearn.preprocessing import LabelEncoder
 from sklearn.preprocessing import OneHotEncoder
+
+print('The scikit-learn version is {}.'.format(sklearn.__version__))
 
 print('       -) ONE-HOT ENCODING using numpy array')
 print('          -) Use of LabelEncoder for Ordered Quality Variable')
