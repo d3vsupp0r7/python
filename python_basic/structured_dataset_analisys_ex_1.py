@@ -1,7 +1,5 @@
-from asynchat import simple_producer
-
-import pandas as pd
 import numpy as np
+import pandas as pd
 import sklearn
 
 print('The pandas version is {}.'.format(pd.__version__))
@@ -59,7 +57,8 @@ print(' OneHotEncoding DS')
 print(ds_one_hot_encoding.head())
 print('       -) ONE-HOT ENCODING using numpy array')
 '''
-To operate on numpy array manipulation for ONE-HOT ENCODING operation we need to import sklearn libraries
+To operate on numpy array manipulation for ONE-HOT ENCODING operation we need to import sklearn libraries.
+IMPO: This code working with sklearn version: 0.21.3.
 '''
 from sklearn.preprocessing import LabelEncoder
 from sklearn.preprocessing import OneHotEncoder
@@ -220,3 +219,5 @@ from sklearn.preprocessing import StandardScaler
 
 X_sklearn_std = feature_data_numpy_array.copy()
 ss = StandardScaler()
+X_sklearn_std = ss.fit_transform(X_sklearn_std)
+print(X_sklearn_std[:5])
