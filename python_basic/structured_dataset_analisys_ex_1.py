@@ -1,3 +1,13 @@
+"""
+Example of dataset manipulation.
+-) Manage ordinal variables
+-) Use of LabelEncoding and OneHotEncoding
+-) Manage missing data
+    -) Imputation example
+-) Normalization and Standardization Example
+-) Dataset splitting using slearn and pandas
+"""
+
 import numpy as np
 import pandas as pd
 import sklearn
@@ -221,3 +231,66 @@ X_sklearn_std = feature_data_numpy_array.copy()
 ss = StandardScaler()
 X_sklearn_std = ss.fit_transform(X_sklearn_std)
 print(X_sklearn_std[:5])
+
+print('*** DATASET SPLITTING ***')
+'''
+Example of boston house dataset from sklearn library.
+The sklearn loads it's dataset into dictionary form.
+'''
+from sklearn.datasets import load_boston
+sk_ds = load_boston()
+print("-) DS info")
+print(sk_ds.DESCR)
+print("     Shape")
+print(sk_ds.data.shape)
+print(" Get features name")
+print(sk_ds.feature_names)
+
+# Convertsklearn dataset to pandas
+print("-) Convert sklearn dataset to pandas dataframe")
+pd_ds = pd.DataFrame(sk_ds.data)
+print(pd_ds.head())
+pd_ds.columns = sk_ds.feature_names
+print(pd_ds.head())
+
+# Convert sklearn dataset to numpy
+print('Obtaining data')
+sk_ds_data_numpy = sk_ds.data
+print('Shape: ' + str(sk_ds_data_numpy.shape) )
+print(sk_ds_data_numpy)
+print('Obtaining Target  data')
+sk_ds_target_numpy = sk_ds.target
+print(sk_ds_target_numpy)
+
+# Dataset division using sklearn
+from sklearn.model_selection import train_test_split
+# Arrays that contains the splitted dataset
+'''
+Notes: The suddivision from train and test set is exposed as fraction on % of splitting passed as 
+argument of *test_size* parameter. 
+'''
+X_train, X_test, Y_train, Y_test = train_test_split(sk_ds_data_numpy,sk_ds_target_numpy,test_size=0.3)
+print('DS subdivision: ')
+print('X_train: ' + str(X_train.shape) )
+print('X_test:  ' + str(X_test.shape) )
+print('Y_train: ' + str(Y_train.shape) )
+print('Y_test:  ' + str(Y_test.shape) )
+
+'''
+Splitting dataset using pandas.
+'''
+PD_sk_to_pd_ds = pd_ds.copy()
+# This instruction will randomize the original dataset and assign it's 70% to pandas object: train_set.
+# IMPO: random_state=0 is important to have constant iteration and same splitting over different iterations
+train_set = PD_sk_to_pd_ds.sample(frac=0.7, random_state=0)
+# This istruction will assign the remains data (30% to test_set)
+test_set = PD_sk_to_pd_ds.drop(train_set.index)
+
+print ('Training set')
+print (train_set.shape)
+print (train_set.head())
+print ('\nTest set')
+print (test_set.shape)
+print (test_set.head())
+print ('\nOriginal DataFrame')
+print (PD_sk_to_pd_ds.head())
