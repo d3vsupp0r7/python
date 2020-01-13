@@ -246,7 +246,7 @@ print(sk_ds.data.shape)
 print(" Get features name")
 print(sk_ds.feature_names)
 
-# Convertsklearn dataset to pandas
+# Convert sklearn dataset to pandas
 print("-) Convert sklearn dataset to pandas dataframe")
 pd_ds = pd.DataFrame(sk_ds.data)
 print(pd_ds.head())
