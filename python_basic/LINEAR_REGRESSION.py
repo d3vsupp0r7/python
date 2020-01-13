@@ -81,3 +81,19 @@ from sklearn.metrics import r2_score
 print('R square index: R^2')
 r2_score_out = r2_score(Y_test,Y_pred)
 print('r^2_SL_LIB: ' + str(r2_score_out))
+
+# Plot LinearRegression Coefficient
+weigth_of_linearRegression =  ll.coef_[0]
+print('Weigth of calculated linearRegression: ' +  str(weigth_of_linearRegression))
+bias_or_intercept_of_linearRegression = ll.intercept_
+print('Bias of calculated linearRegression: ' +  str(bias_or_intercept_of_linearRegression))
+
+# Plot LinearRegression
+import matplotlib.pyplot as plt
+plt.scatter(X_train,Y_train, c="green", edgecolors="white", label="Train set")
+plt.scatter(X_test,Y_test, c="blue", edgecolors="white", label="Test set")
+plt.xlabel('Value of RV')
+plt.ylabel('Value of MEDV (in $1000)')
+plt.legend(loc="upper left")
+plt.plot(X_test,Y_pred,color='red', linewidth=3)
+plt.show()
