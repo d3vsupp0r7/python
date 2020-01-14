@@ -44,7 +44,7 @@ print('Y_test shape: ' + str(Y_test.shape) )
 print('Y_test sample data ')
 print(Y_test[:5])
 
-## applay the LinearRegression on dataset witk sklearn
+## Apply the LinearRegression on dataset witk sklearn
 print('*** LinearRegression with sklearn ***')
 from sklearn.linear_model import LinearRegression
 ll = LinearRegression()
@@ -97,3 +97,10 @@ plt.ylabel('Value of MEDV (in $1000)')
 plt.legend(loc="upper left")
 plt.plot(X_test,Y_pred,color='red', linewidth=3)
 plt.show()
+
+# Make a single prediction
+print('Example: Test a Linear Regression model on single input ')
+value_to_predict = 6.0300
+#y_single_pred = ll.predict(np.array[6.0300].reshape(1,1) )
+y_single_pred = ll.predict([ [6.0300] ])
+print('Predicted value for input: ' + str(value_to_predict) + ' is: ' + str(y_single_pred))

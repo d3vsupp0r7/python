@@ -4,3 +4,9 @@ https://machinelearningmastery.com/columntransformer-for-numerical-and-categoric
 # SKLEARN
 
 https://www.engineeringbigdata.com/boston-dataset-scikit-learn-machine-learning-in-python/
+
+# SEABORN
+
+## Heatmap
+
+https://likegeeks.com/seaborn-heatmap-tutorial/
