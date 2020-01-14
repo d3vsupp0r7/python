@@ -3,6 +3,11 @@ import numpy as np
 import matplotlib as mtplt
 import matplotlib.pyplot as plt
 
+'''
+This example was executed on boston housing dataset.
+
+'''
+
 ds_filename = "pandas_dataset_examples/housing.data"
 
 ## dataset loading
