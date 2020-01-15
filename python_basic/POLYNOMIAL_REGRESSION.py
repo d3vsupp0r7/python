@@ -84,8 +84,46 @@ If degree was 2, we have 3 columns
 '''
 print(X_train_poly[:5])
 
-#degree comparison
+# Polynomial regression: degree comparison
+## Using a subset of features
 for i in range(1,11):
+    polyfeats = PolynomialFeatures(degree=i)
+    X_train_poly = polyfeats.fit_transform(X_train)
+    X_test_poly = polyfeats.fit_transform(X_test)
+    #
+    ll = LinearRegression()
+    ll.fit(X_train_poly,Y_train)
+    Y_pred = ll.predict(X_test_poly)
+    #
+    print(' *************** ')
+    print('Degree: ' + str(i))
+    print('Prediction output sample')
+    print(Y_pred[:5])
+    #
+    MSE = mean_squared_error(Y_test, Y_pred)
+    r2_score_out = r2_score(Y_test, Y_pred)
+    print("MSE: " + str(MSE))
+    print("R2 score: " + str(r2_score_out))
+    # Plot LinearRegression Coefficient
+    weigth_of_linearRegression = ll.coef_
+    print('Weigth of calculated linearRegression: ' + str(weigth_of_linearRegression))
+    bias_or_intercept_of_linearRegression = ll.intercept_
+    print('Bias of calculated linearRegression: ' + str(bias_or_intercept_of_linearRegression))
+    print(' *************** ')
+
+## Using all of features dataset
+print(' ** ANALISY OF POLINOMYAL REGRESSION USING ALL DATASET FEATURES ** ')
+X = pd_dataset.drop("MEDV", axis=1).values
+Y = pd_dataset["MEDV"].values
+
+# Create set for train/test
+X_train, X_test, Y_train, Y_test = train_test_split(X,Y,test_size=0.3, random_state=0)
+
+print('Analyzing from 1 to 4 degree')
+## Remeber it's numbered from N+1
+max_degree = 5
+
+for i in range(1,5):
     polyfeats = PolynomialFeatures(degree=i)
     X_train_poly = polyfeats.fit_transform(X_train)
     X_test_poly = polyfeats.fit_transform(X_test)
