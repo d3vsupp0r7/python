@@ -147,3 +147,41 @@ for alpha in alphas:
     index += 1
 
 print('*******************************')
+
+
+# ElasticNet Regularizzation - type L1 and L2
+from sklearn.linear_model import ElasticNet
+alphas = [0.0001, 0.001, 0.01, 0.1, 1., 10.]
+print('*******************************')
+print('** ElasticNet REGULARIZATION METHOD - L1 TYPE**')
+index = 1
+for alpha in alphas:
+    print('** START REGULARIZATION: ' + str(index) + ' **')
+    print('ALPHA='+str(alpha))
+    #Parameter l1_ratio of ElasticNet implies how to use L1 and L2 Regularization
+    # If this parameter is 0.5, L1 and L2 regularization are used with same weigth
+    model = ElasticNet(alpha=alpha)
+    model.fit(X_train_poly,Y_train)
+
+    Y_pred_train = model.predict(X_train_poly)
+    Y_pred_test = model.predict(X_test_poly)
+
+    mse_train = mean_squared_error(Y_train, Y_pred_train)
+    r2_train = r2_score(Y_train, Y_pred_train)
+    print('DS Train information')
+    print('MSE train: ' + str(mse_train))
+    print('R square train: ' + str(r2_train))
+
+    mse_test = mean_squared_error(Y_test, Y_pred_test)
+    r2_test = r2_score(Y_test, Y_pred_test)
+    print('DS Test information')
+    print('MSE test: ' + str(mse_test))
+    print('R square test: ' + str(r2_test))
+    print('** END REGULARIZATION: ' + str(index) + ' **')
+    index += 1
+
+print('*******************************')
+'''
+IMORTANT NOTE: if we use regularization, to have a valid model
+we ned to normalize/standardize the dates to have values on same scale for features.
+'''
