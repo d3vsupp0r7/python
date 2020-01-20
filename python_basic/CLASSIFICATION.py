@@ -81,4 +81,32 @@ Y_test = le.transform(Y_test)
 print('Print encoded train set')
 print(Y_train[:5])
 #
-print('*** Dataset  ***')
+print('*** Dataset Standardization  ***')
+ss = StandardScaler()
+X_train = ss.fit_transform(X_train)
+X_test = ss.transform(X_test)
+
+# Build LogisticRegression model => Classification model
+from sklearn.linear_model import LogisticRegression
+lr = LogisticRegression()
+out = lr.fit(X_train,Y_train)
+print(out)
+
+# Model testing
+Y_pred = lr.predict(X_test)
+print('Predict')
+print(Y_pred[:5])
+print('Predict: proba')
+Y_pred_proba = lr.predict_proba(X_test)
+print(Y_pred_proba[:5])
+print('Predict: Y_pred_log_proba')
+Y_pred_log_proba = lr.predict_log_proba(X_test)
+print(Y_pred_log_proba[:5])
+
+# Accuracy test
+from sklearn.metrics import accuracy_score
+
+# Log likelyhood
+from sklearn.metrics import log_loss
+
+
