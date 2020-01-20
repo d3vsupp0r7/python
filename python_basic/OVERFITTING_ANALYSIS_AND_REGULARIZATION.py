@@ -61,7 +61,7 @@ X_train_poly = poly_feats.fit_transform(X_train)
 X_test_poly = poly_feats.transform(X_test)
 print('DS Train shape')
 print(X_train_poly.shape)
-# 2. standardization of sataset
+# 2. standardization of dataset
 ss = StandardScaler()
 X_train_poly = ss.fit_transform(X_train_poly)
 X_test_poly = ss.fit_transform(X_test_poly)
