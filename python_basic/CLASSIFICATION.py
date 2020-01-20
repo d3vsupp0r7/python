@@ -96,6 +96,7 @@ print(out)
 Y_pred = lr.predict(X_test)
 print('Predict')
 print(Y_pred[:5])
+# Whtai is the probability
 print('Predict: proba')
 Y_pred_proba = lr.predict_proba(X_test)
 print(Y_pred_proba[:5])
@@ -104,9 +105,63 @@ Y_pred_log_proba = lr.predict_log_proba(X_test)
 print(Y_pred_log_proba[:5])
 
 # Accuracy test
+'''
+Accuracy require the exact prediction as parameter.
+The accuracy variate from range 0->1
+0 near value means wrong prediction
+1 near values means exact prediction
+'''
 from sklearn.metrics import accuracy_score
-
+accuracy = accuracy_score(Y_test, Y_pred)
+print('Accuracy: ' + str(accuracy))
 # Log likelyhood
+'''
+IMPO: Log Loss
+The sklearn library implement the log loss likelyhood,
+this means that it's implement the nagative of log likelihood.
+This library require, for it's prediction the probability.
+The output of this function variate from 0 to 1
+Values close to 0 means high precision and values near to 1 means less precision.
+'''
 from sklearn.metrics import log_loss
+logLoss = log_loss(Y_test, Y_pred_proba)
+print('Log Loss: ' + str(logLoss))
 
+# Print the decision boundary
+def show_bounds(model,X,Y,labels=["Classe 0","Classe 1"], figsize=(12,10), graphTitle="Graph title"):
 
+    fig = plt.figure(figsize=figsize)
+
+    h = .02
+
+    x_min, x_max = X[:, 0].min(), X[:, 0].max()
+    y_min, y_max = X[:, 1].min(), X[:, 1].max()
+
+    xx, yy = np.meshgrid(np.arange(x_min, x_max, h),
+                         np.arange(y_min, y_max, h))
+
+    Z = model.predict(np.c_[xx.ravel(), yy.ravel()])
+
+    Z = Z.reshape(xx.shape)
+    plt.contourf(xx, yy, Z, cmap=plt.cm.Paired)
+
+    X_m = X[Y==1]
+    X_b = X[Y==0]
+    plt.scatter(X_b[:, 0], X_b[:, 1], c="green",  edgecolor='white', label=labels[0])
+    plt.scatter(X_m[:, 0], X_m[:, 1], c="red",  edgecolor='white', label=labels[1])
+    plt.legend()
+    fig.suptitle(graphTitle, fontsize=20)
+    plt.show()
+
+show_bounds(lr,X_train,Y_train,labels=["B","M"],graphTitle="Train decision boundary")
+
+show_bounds(lr,X_test,Y_test,labels=["B","M"],graphTitle="Test decision boundary")
+
+## Refactoring with dataset manipulation ##
+drop_feature_1 = "id"
+X = pd_dataset.drop([class_column,drop_feature_1],axis=1).values
+Y = pd_dataset[class_column].values
+print('Feature: DS sample data')
+print(X[:5])
+print('Label/Target: DS sample data')
+print(Y[:5])
