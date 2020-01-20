@@ -14,9 +14,10 @@ ds_filename = "pandas_dataset_examples/housing.data"
 pd_dataset = pd.read_csv(ds_filename, sep="\s+"
                          , names=["CRIM","ZN","INDUS","CHAS","NOX","RM","AGE","DIS","RAD","TAX","PTRATIO","B","LSTAT","MEDV"])
 print('*) DS Info')
+print(pd_dataset.info())
 print('-) DS shape')
 print(pd_dataset.shape)
-print('-) DS  desc')
+print('-) DS describe()')
 print(pd_dataset.describe())
 print('-) DS sample data')
 print(pd_dataset.head())

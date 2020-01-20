@@ -8,9 +8,10 @@ Example 1 - Simple Linear regression on two variables.
 ## dataset loading
 pd_dataset = pd.read_csv(ds_filename, sep="\s+", usecols=[5,13], names=["RM", "MEDV"])
 print('*) DS Info')
+print(pd_dataset.info())
 print('-) DS shape')
 print(pd_dataset.shape)
-print('-) DS  desc')
+print('-) DS  describe()')
 print(pd_dataset.describe())
 print('-) DS sample data')
 print(pd_dataset.head())
