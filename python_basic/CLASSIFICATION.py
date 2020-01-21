@@ -128,7 +128,7 @@ logLoss = log_loss(Y_test, Y_pred_proba)
 print('Log Loss: ' + str(logLoss))
 
 # Print the decision boundary
-def show_bounds(model,X,Y,labels=["Classe 0","Classe 1"], figsize=(12,10), graphTitle="Graph title"):
+def show_bounds(model,X,Y,labels=["Class 0","Class 1"], figsize=(12,10), graphTitle="Graph title"):
 
     fig = plt.figure(figsize=figsize)
 
@@ -157,7 +157,8 @@ show_bounds(lr,X_train,Y_train,labels=["B","M"],graphTitle="Train decision bound
 
 show_bounds(lr,X_test,Y_test,labels=["B","M"],graphTitle="Test decision boundary")
 
-## Refactoring with dataset manipulation ##
+## Refactoring with dataset manipulation: all features without 'id' feature ##
+print('***** Refactoring of dataset: Remove id column *****')
 drop_feature_1 = "id"
 X = pd_dataset.drop([class_column,drop_feature_1],axis=1).values
 Y = pd_dataset[class_column].values
@@ -165,3 +166,111 @@ print('Feature: DS sample data')
 print(X[:5])
 print('Label/Target: DS sample data')
 print(Y[:5])
+
+#
+X_train, X_test, Y_train, Y_test = train_test_split(X,Y,test_size=0.3, random_state=0)
+print('DS subdivision: ')
+print('*** X_train ***')
+print('X_train shape: ' + str(X_train.shape) )
+print('X_train sample data ')
+print(X_train[:5])
+#
+print('*** X_test ***')
+print('X_test shape: ' + str(X_test.shape) )
+print('X_test sample data ')
+print(X_test[:5])
+#
+print('*** Y_train ***')
+print('Y_train shape: ' + str(Y_train.shape) )
+print('Y_train sample data ')
+print(Y_train[:5])
+#
+print('*** Y_test ***')
+print('Y_test shape: ' + str(Y_test.shape) )
+print('Y_test sample data ')
+print(Y_test[:5])
+
+## -- Transform numerical-- ##
+'''
+IMPO 
+'''
+print('*** Encode categorical data ***')
+le = LabelEncoder()
+Y_train = le.fit_transform(Y_train)
+Y_test = le.transform(Y_test)
+#
+print('Print encoded train set')
+print(Y_train[:5])
+#
+print('*** Dataset Standardization  ***')
+ss = StandardScaler()
+X_train = ss.fit_transform(X_train)
+X_test = ss.transform(X_test)
+
+## Apply the LogisticRegression model to manipulated dataset ##
+lr = LogisticRegression()
+out = lr.fit(X_train,Y_train)
+print(out)
+
+# Model testing
+Y_pred = lr.predict(X_test)
+print('Predict')
+print(Y_pred[:5])
+# Whtai is the probability
+print('Predict: proba')
+Y_pred_proba = lr.predict_proba(X_test)
+print(Y_pred_proba[:5])
+print('Predict: Y_pred_log_proba')
+Y_pred_log_proba = lr.predict_log_proba(X_test)
+print(Y_pred_log_proba[:5])
+
+# Print model metrics
+accuracy_ds_2 = accuracy_score(Y_test, Y_pred)
+print('[] Accuracy ds 2: ' + str(accuracy_ds_2))
+logLoss_ds_2 = log_loss(Y_test, Y_pred_proba)
+print('[] Log Loss ds 2: ' + str(logLoss_ds_2))
+
+# Comparison metrics with all features
+print('[] Accuracy ds 1: ' + str(accuracy))
+print('[] Log Loss ds 1: ' + str(logLoss))
+
+# Regularization of LogisticRegression
+'''
+The LogisticRegression implements the regularization with two parameters:
+penalty => assumes the l1/l2 values for regularization type we want to use
+C       => is the inverse of lambda value (1/lambda). If this value is high makes the regulation more weak
+                                                    otherwise make the regulation more strong
+By default these values are:
+penalty = l2
+C = 1
+'''
+## Apply the LogisticRegression model to manipulated dataset
+##   with l1 regularization
+lr = LogisticRegression(penalty="l1", C=1)
+out = lr.fit(X_train,Y_train)
+print(out)
+
+# Model testing
+Y_pred = lr.predict(X_test)
+print('Predict')
+print(Y_pred[:5])
+# Whtai is the probability
+print('Predict: proba')
+Y_pred_proba = lr.predict_proba(X_test)
+print(Y_pred_proba[:5])
+print('Predict: Y_pred_log_proba')
+Y_pred_log_proba = lr.predict_log_proba(X_test)
+print(Y_pred_log_proba[:5])
+
+# Print model metrics
+accuracy_ds_reg_l1 = accuracy_score(Y_test, Y_pred)
+print('[] Accuracy ds reg l1: ' + str(accuracy_ds_reg_l1))
+logLoss_ds_reg_l1 = log_loss(Y_test, Y_pred_proba)
+print('[] Log Loss ds reg l1: ' + str(logLoss_ds_reg_l1))
+
+# Comparison metrics with all features
+print('[] Accuracy ds 1: ' + str(accuracy))
+print('[] Log Loss ds 1: ' + str(logLoss))
+print('[] Accuracy ds 2: ' + str(accuracy_ds_2))
+print('[] Log Loss ds 2: ' + str(logLoss_ds_2))
+
