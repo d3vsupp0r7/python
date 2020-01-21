@@ -105,3 +105,16 @@ sns.heatmap(cm,annot=True, cmap="Blues_r", linewidths=.5, square=True)
 plt.ylabel("Correct class")
 plt.xlabel("Predicted class")
 plt.show()
+
+# sklearn method  that only execute 1vsAll classification
+from sklearn.multiclass import OneVsRestClassifier
+ovr = OneVsRestClassifier(LogisticRegression())
+ovr.fit(X_train,Y_train)
+Y_pred_ovr = ovr.predict(X_test)
+Y_pred_proba_ovr = ovr.predict_proba(X_test)
+print('*** Calculate the performance of models OVR')
+accuracy = accuracy_score(Y_test, Y_pred_ovr)
+print('Accuracy (OVR): ' + str(accuracy))
+
+logLoss = log_loss(Y_test, Y_pred_proba_ovr)
+print('Log Loss (OVR): ' + str(logLoss))
