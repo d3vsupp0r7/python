@@ -111,8 +111,16 @@ for K in Ks:
     print("**           END           **")
     print("*******************************")
 
-## TESTING WITH GEBERIC K VALUES ##
-knn = KNeighborsClassifier(n_neighbors=K)
+print("*******************************")
+print("** IN DEPTH ANALYSIS FOR A K PPARAMETER WITH PLOT OF RESULTS **")
+fixed_k_example = 3
+print("** K parameters value: " + str(fixed_k_example) + " **")
+knn = KNeighborsClassifier(n_neighbors=fixed_k_example)
 out = knn.fit(X_train, Y_train)
 
 Y_pred = knn.predict(X_test)
+for i in range(0,len(X_test)):
+    if(Y_pred[i] != Y_test[i]):
+        print("Number %d classified with %d" % (Y_test[i],Y_pred[i]))
+        plt.imshow(X_test[i].reshape([8,8]), cmap="gray" )
+        plt.show()
