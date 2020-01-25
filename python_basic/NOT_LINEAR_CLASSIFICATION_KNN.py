@@ -33,6 +33,10 @@ from sklearn.linear_model import LogisticRegression
 ## sklearn.datasets
 from sklearn.datasets import load_digits
 
+'''
+IMPO: This example will use the default dataset of sklearn library for digit.
+
+'''
 pd_dataset = load_digits()
 
 X = pd_dataset.data
