@@ -32,6 +32,10 @@ from sklearn.model_selection import train_test_split
 from sklearn.linear_model import LinearRegression
 from sklearn.linear_model import LogisticRegression
 
+'''
+IMPO: This example show the SVM Linear classification using the iris dataset. 
+'''
+
 ds_filename = "pandas_dataset_examples/iris.csv"
 pd_dataset = pd.read_csv(ds_filename)
 
@@ -102,3 +106,45 @@ accuracy_train = svc.score(X2_train, Y_train)
 print('Accuracy (train): %.4f' % accuracy_train)
 accuracy_test = svc.score(X2_test, Y_test)
 print('Accuracy (test): %.4f' % accuracy_test)
+
+
+def plot_bounds(X, Y, model=None, classes=None, figsize=(8, 6)):
+    plt.figure(figsize=figsize)
+
+    if (model):
+        X_train, X_test = X
+        Y_train, Y_test = Y
+        X = np.vstack([X_train, X_test])
+        x_min, x_max = X[:, 0].min() - .5, X[:, 0].max() + .5
+        y_min, y_max = X[:, 1].min() - .5, X[:, 1].max() + .5
+
+        xx, yy = np.meshgrid(np.arange(x_min, x_max, .02),
+                             np.arange(y_min, y_max, .02))
+
+        if hasattr(model, "predict_proba"):
+            Z = model.predict_proba(np.c_[xx.ravel(), yy.ravel()])[:, 1]
+        else:
+            Z = model.predict(np.c_[xx.ravel(), yy.ravel()])
+
+        Z = Z.reshape(xx.shape)
+
+        plt.contourf(xx, yy, Z, alpha=.8)
+
+    plt.scatter(X_train[:, 0], X_train[:, 1], c=Y_train)
+    plt.scatter(X_test[:, 0], X_test[:, 1], c=Y_test, alpha=0.6)
+
+    plt.show()
+
+plot_bounds( (X2_train,X2_test), (Y_train,Y_test), svc )
+
+plot_bounds( (X2_train,X2_test), (Y_train,Y_test), svc, figsize=(12,8) )
+
+## Analisys with SVM using all dataset features
+svc.fit(X_train, Y_train)
+#1. Accuracy
+print('-) [All features DS analysis] - Calculate the performance of models TRAIN DS')
+accuracy_train_all_features = svc.score(X_train, Y_train)
+print('Accuracy for all features (train): %.4f' % accuracy_train_all_features)
+accuracy_test_all_features = svc.score(X_test, Y_test)
+print('Accuracy for all features (test): %.4f' % accuracy_test_all_features)
+
