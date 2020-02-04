@@ -30,7 +30,7 @@ target_as_numpy_array = pd_dataset["MEDV"].values
 print('Get information about properties on dataset')
 print(pd_dataset.info())
 
-# Analize wat type of feature we can select to execute preliminary analysis
+# Analize what type of feature we can select to execute preliminary analysis
 # using the correlation index
 print('Correlation index analysis')
 print(pd_dataset.corr())

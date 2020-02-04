@@ -14,6 +14,12 @@ https://towardsdatascience.com/exploratory-data-analysis-in-python-c9a77dfa39ce
 
 https://towardsdatascience.com/all-about-categorical-variable-encoding-305f3361fd02
 
+## Feature selection
+
+https://towardsdatascience.com/feature-selection-with-pandas-e3690ad8504b
+
+https://www.datacamp.com/community/tutorials/feature-selection-python
+
 ### List of example datasets
 http://archive.ics.uci.edu/ml/datasets.php
 
