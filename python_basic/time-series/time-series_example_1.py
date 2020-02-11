@@ -18,7 +18,7 @@ print('-) DS shape')
 print(pd_dataset.shape)
 
 '''
-Rememeber:
+Remember:
 The describe method only get statistics for numeric variables. This mean that 
 no information are given for date field.
 
@@ -30,7 +30,7 @@ print('-) DS describe()')
 print(pd_dataset.describe())
 
 '''
-IMPO: When analizing at first glance the output of describe method, we nedd to make attention if values
+IMPO: When analysing at first glance the output of describe method, we need to make attention if values
 into result are an huge difference in magnitude.
 As example, spx has the minimum more lowest respect to other market indexes MIN values.
 
@@ -44,7 +44,7 @@ print(tabulate(pd_dataset.corr()))
 
 # Exploring the dataset
 '''
-Inside the python analisys of time series often the date field is used as index.
+Inside the python analysis of time series often the date field is used as index.
 This example uses four market index (used in stock exchange):
 -) S&P 500    -> spx        USA
 -) DAX 30     -> dax        GERMANY
@@ -65,7 +65,7 @@ print(pd_dataset.isna())
 '''
 TIP: Simple way to check null values: panda_ds_object.isna().sum()
 If some row have value different from 0, there are null values inside that column.
-Also, we can use this analisys on the single column of pandas dataframe, like:
+Also, we can use this analysis on the single column of pandas dataframe, like:
 panda_ds_object.columnname.isna().sum()
 '''
 print(pd_dataset.isna().sum() )
@@ -99,8 +99,8 @@ plt.show()
 
 # QQ Plot: Quantile-Quantile Plot
 '''
-The Quantile-Quantile plot ia a tool used in analytics to determinate whether a data set is distributed a certain way unless
-specified, otherwise the QQ plot showcases how data fits a normal distribution.
+The Quantile-Quantile plot ia a tool used in analytics to determinate whether a data set is distributed a certain way 
+unless specified, otherwise the QQ plot showcases how data fits a normal distribution.
 '''
 import scipy.stats
 import pylab
@@ -112,15 +112,15 @@ QQPlot info:
 The QQ Plot, takes all the values a variable can take and arranges them in ascending order.
 
 The Y axis represent teh price with the highest one at the top and the lowest at bottom.
-The X axis represent the theorical quintiles of the data set and how many standard deviations away 
+The X axis represent the theoretical quintiles of the data set and how many standard deviations away 
 from the mean these values are.
 
-The red line represent what the data points should follow if they are normally distributed. This is the normal behavoir
+The red line represent what the data points should follow if they are normally distributed. This is the normal behavior
 for time series data.
 '''
 
 ## Trasforming DataFrame to TimeSeries  ##
-print('*** Trasforming DataFrame to TimeSeries ***')
+print('*** Transforming DataFrame to TimeSeries ***')
 '''
 
 '''
@@ -150,12 +150,12 @@ print(pd_dataset_compl.describe())
 '''
 IMPORTANT NOTES: Pandas add to data also the time after the conversation of date field. This is helpful in order to
 manage the date field in it's complexity.
-Once the "data" field is trasformed to be managed properly, this field can be used as index to execute the various
+Once the "data" field is transformed to be managed properly, this field can be used as index to execute the various
 operations.
 
 Each value in our row should correspond to a time period. This is important because we want to
 examine specific chunks of data between two concrete dates. So "data" field of dataset can be seen as a list of 
-potential cut-off points. This can be acheived setting "date" field as a index.
+potential cut-off points. This can be achieved setting "date" field as a index.
 '''
 # setting date field as a index
 pd_dataset_compl.set_index("date", inplace=True)
@@ -172,9 +172,26 @@ will give
 ** AttributeError: 'DataFrame' object has no attribute 'date' **
 ]
 
-This beacause once a "date" field becaome an idex, we no longer save its values as a separate 
+This because once a "date" field became an index, we no longer save its values as a separate 
 attribute in the data frame.
 
 '''
 # This line give ERROR: see Notes print(pd_dataset_compl.date.describe())
-## ##
+## Set a frequency to trasform dataset into time series ##
+'''
+The pandas libray allow us to assign the frequency of set using it's method *asfreq()*  on dataframe object.
+The methodh can use different parameters:
+-) h => hours
+-) w => weekly
+-) d => daily
+-) m => monthly
+-) a => annual
+
+The parameter is mandatory!.
+
+If some date point are not present, the library will automatically add the missing days/period and insert NaN values
+on each rows and we generated new periods wich do not have values associated with them.
+'''
+pd_dataset_compl = pd_dataset_compl.asfreq('d')
+print('-) DS head() AFTER asfreq() MODIFICATION')
+print(pd_dataset_compl.head())
