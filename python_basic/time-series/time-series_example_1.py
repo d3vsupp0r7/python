@@ -106,6 +106,19 @@ import scipy.stats
 import pylab
 
 scipy.stats.probplot(pd_dataset_compl.spx, plot = pylab)
+pylab.title('Quantile-Quantile Plot for S&P 500 index')
+pylab.show()
+#
+scipy.stats.probplot(pd_dataset_compl.ftse, plot = pylab)
+pylab.title('Quantile-Quantile Plot for FTSE 100 index')
+pylab.show()
+#
+scipy.stats.probplot(pd_dataset_compl.dax, plot = pylab)
+pylab.title('Quantile-Quantile Plot for DAX 30 index')
+pylab.show()
+#
+scipy.stats.probplot(pd_dataset_compl.nikkei, plot = pylab)
+pylab.title('Quantile-Quantile Plot for Nikkei 225 index')
 pylab.show()
 '''
 QQPlot info:
@@ -128,9 +141,14 @@ print('-) DS describe() with data')
 print(pd_dataset.date.describe())
 '''
 NOTES: Using pd_dataset.date.describe(), by default python give to all "date" fields the value 1. So, any single 
-data holds a "top" vale and the method randomly select one to display. 
+data holds a "top" value and the method randomly select one to display. 
 '''
-# Trasforming data filed to DateTime type thazth libraries can recognize as data field.
+# Transforming data filed to DateTime type that libraries can recognize as data field.
+'''
+So for transforming data filed to DateTime type we do that transformation, using the pandas library, using the method 
+*to_datetime* that accept as parameter the column of dataset that represent
+the data field.
+'''
 dataframe_with_data_example_1 = pd.to_datetime(pd_dataset_compl.date)
 '''
 By default, the library assumes that date are in format mm/dd/yyyy, to convert it into format dd/mm/yyyy
@@ -180,18 +198,65 @@ attribute in the data frame.
 ## Set a frequency to trasform dataset into time series ##
 '''
 The pandas libray allow us to assign the frequency of set using it's method *asfreq()*  on dataframe object.
-The methodh can use different parameters:
+The method can use different parameters:
 -) h => hours
 -) w => weekly
 -) d => daily
 -) m => monthly
 -) a => annual
+-) b => includes only business day (no saturdays and sundays)
 
 The parameter is mandatory!.
 
 If some date point are not present, the library will automatically add the missing days/period and insert NaN values
-on each rows and we generated new periods wich do not have values associated with them.
+on each rows and we generated new periods witch do not have values associated with them.
 '''
 pd_dataset_compl = pd_dataset_compl.asfreq('d')
 print('-) DS head() AFTER asfreq() MODIFICATION')
 print(pd_dataset_compl.head())
+
+pd_dataset_compl = pd_dataset_compl.asfreq('b')
+print('-) DS head() AFTER asfreq() MODIFICATION for business days')
+print(pd_dataset_compl.head())
+
+## Managing the missing values  ##
+print('*** TimeSeries: Managing the missing values ***')
+'''
+As basic, we use the *isna()* on dataframe to know if there are some null values.
+'''
+print('-) DS isna() on original dataframe')
+print(pd_dataset.isna().sum() )
+print('-) DS isna() on dataset FTER asfreq() MODIFICATION for business days ')
+print(pd_dataset_compl.isna().sum() )
+'''
+IMPO NOTES: This means that changing frequency can produce a MISSING DATA when we analize the dataset.
+These mean thath we need to fill these missing values.
+'''
+print('-) DS filling missing values using the *fillna()* method')
+'''
+*fillna()* method fill missing data with different approach:
+
+1) Front filling: Assign the value of previous period;
+()
+
+2) Back filling: Assign the value of next period;
+
+3) Assign the same value to all missing periods. This mean that for the missing values,we assign to it
+the average of all values of time-series analyzed into file.
+
+'''
+# Example: fillna with front filling approach
+pd_dataset_compl.spx = pd_dataset_compl.spx.fillna(method="ffill")
+print(pd_dataset_compl.spx);
+print('-) ffill test on spx column')
+print(pd_dataset_compl.isna().sum() )
+
+# Example: fillna with back filling approach
+pd_dataset_compl.ftse = pd_dataset_compl.ftse.fillna(method="bfill")
+print('-) bfill test on ftse column')
+print(pd_dataset_compl.isna().sum() )
+
+# Example: fillna with average approach
+pd_dataset_compl.dax = pd_dataset_compl.dax.fillna(value=pd_dataset_compl.dax.mean())
+print('-) average filling test on dax column')
+print(pd_dataset_compl.isna().sum() )
