@@ -5,7 +5,7 @@ import seaborn as sns
 sns.set()
 
 #
-ds_filename = "../time-series_datasets/market_index_22018.csv"
+ds_filename = "../time-series_datasets/market_index_2018.csv"
 
 #Define the complete dataframe
 pd_dataset_compl = pd.read_csv(ds_filename)
@@ -22,7 +22,7 @@ Remember:
 The describe method only get statistics for numeric variables. This mean that 
 no information are given for date field.
 
-Clolumn meanings:
+Column meanings:
 count: count the number of observation for each column
 
 '''
@@ -72,7 +72,7 @@ print(pd_dataset.isna().sum() )
 print(' -) Using only column name')
 print(pd_dataset.spx.isna().sum() )
 
-# Ploting timeseries data
+# Plotting timeseries data
 '''
 
 '''
@@ -91,7 +91,7 @@ plt.show()
 print(pd_dataset_compl.nikkei.plot(figsize=(20,5), title="Nikkei 225 Prices - Better visual"))
 plt.show()
 
-# Plot two timeseries togheter
+# Plot two timeseries together
 print(pd_dataset_compl.spx.plot(figsize=(20,5)) )
 print(pd_dataset_compl.ftse.plot(figsize=(20,5)) )
 plt.title("S&P 500 vs FTSE 100")
@@ -161,7 +161,7 @@ print(pd_dataset_compl.head())
 pd_dataset_compl.date = pd.to_datetime(pd_dataset_compl.date, dayfirst=True)
 print('-) DS head() invocation with data field processed AFTER MODIFICATION')
 print(pd_dataset_compl.head())
-## Check if trasformation of string to date is executed
+## Check if transformation of string to date is executed
 print('-) DS describe() with data AFTER MODIFICATION')
 print(pd_dataset_compl.date.describe())
 print(pd_dataset_compl.describe())
@@ -229,15 +229,14 @@ print(pd_dataset.isna().sum() )
 print('-) DS isna() on dataset FTER asfreq() MODIFICATION for business days ')
 print(pd_dataset_compl.isna().sum() )
 '''
-IMPO NOTES: This means that changing frequency can produce a MISSING DATA when we analize the dataset.
-These mean thath we need to fill these missing values.
+IMPO NOTES: This means that changing frequency can produce a MISSING DATA when we analyze the dataset.
+These mean that we need to fill these missing values.
 '''
 print('-) DS filling missing values using the *fillna()* method')
 '''
 *fillna()* method fill missing data with different approach:
 
 1) Front filling: Assign the value of previous period;
-()
 
 2) Back filling: Assign the value of next period;
 
@@ -260,3 +259,62 @@ print(pd_dataset_compl.isna().sum() )
 pd_dataset_compl.dax = pd_dataset_compl.dax.fillna(value=pd_dataset_compl.dax.mean())
 print('-) average filling test on dax column')
 print(pd_dataset_compl.isna().sum() )
+
+## Managing the dataframe: Operations on columns  ##
+print('*** TimeSeries: Managing the dataframe with operations on columns ***')
+'''
+Example of use: We want to analyze only a specific index. There are are two essential reason to do that:
+1) Managing a dataset with less data means that we are more fast to manipulate the entire data frame.
+2) Clarity, easier to keep track of the dataset.
+'''
+## Add a new column of the fly to dataset
+print('-) Add the new column: market_value: market_value is spx values')
+pd_dataset_compl['market_value'] = pd_dataset_compl.spx
+print(pd_dataset_compl.describe())
+
+print('-) Delete unused column')
+del pd_dataset_compl['spx'],pd_dataset_compl['ftse'], pd_dataset_compl['dax'],pd_dataset_compl['nikkei']
+print(pd_dataset_compl.describe())
+
+## Timeseries: Splitting data for model: Train/Test set  ##
+print('*** Timeseries: Splitting data for model: Train/Test set ***')
+'''
+NOTES: In order to apply a machine learning model to time series, we need to split our data to two dataset,
+the train and test data. splitting the data into this two approach is used to compare prediction ( model trained 
+on train dataset) to actual values (test dataset values). Obviusly the colesr the forecasts, the better the model.
+
+For a time series approach is not possible to shufffle data form Train and test dataset.
+-) The training ses is from a beginning up to some cut off point.
+-) The testing set is from the cutoff point until the end.
+
+Define the cutoff point is the problem.
+*) If too large, the model will fit the training set too well and perform poorly with a new dataset
+*) If toll small we can't create an accurate model.
+
+A basic compromise, we can split with 80/20 rule. 80% Traning / 20% Test .
+After the split is a good practice to verify if the split was succesfully executed  with comparing the 
+training dataset tail() values to test dataset head() to verify if some values are overlapped and manage it
+as needed.
+
+'''
+print('-) Use of *iloc()* method to split the data')
+# Step one: Determinate the cuoff piont
+'''
+
+'''
+print('-) Global dataset size: ' + str(len(pd_dataset_compl)))
+size = int(len(pd_dataset_compl)*0.8)
+print('-) 0.8 size: ' + str(size))
+
+# Step two: create training dataset
+training_df = pd_dataset_compl.iloc[:size]
+test_df = pd_dataset_compl.iloc[size:]
+
+print('-) Verify training dataframe splitting')
+print('   -) Verify training dataframe splitting (TAIL)')
+print(training_df.tail())
+print('-) Verify test dataframe splitting')
+print('   -) Verify test dataframe splitting (HEAD)')
+print(test_df.head())
+print('    -) Verify test dataframe splitting (TAIL)')
+print(test_df.tail())
