@@ -289,7 +289,7 @@ For a time series approach is not possible to shufffle data form Train and test 
 
 Define the cutoff point is the problem.
 *) If too large, the model will fit the training set too well and perform poorly with a new dataset
-*) If toll small we can't create an accurate model.
+*) If too small we can't create an accurate model.
 
 A basic compromise, we can split with 80/20 rule. 80% Traning / 20% Test .
 After the split is a good practice to verify if the split was succesfully executed  with comparing the 
@@ -298,13 +298,13 @@ as needed.
 
 '''
 print('-) Use of *iloc()* method to split the data')
-# Step one: Determinate the cuoff piont
+# Step one: Determinate the cutoff point
 '''
 
 '''
 print('-) Global dataset size: ' + str(len(pd_dataset_compl)))
 size = int(len(pd_dataset_compl)*0.8)
-print('-) 0.8 size: ' + str(size))
+print('-) 0.8 size: ' + str(size)) 
 
 # Step two: create training dataset
 training_df = pd_dataset_compl.iloc[:size]
