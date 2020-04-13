@@ -197,7 +197,7 @@ attribute in the data frame.
 # This line give ERROR: see Notes print(pd_dataset_compl.date.describe())
 ## Set a frequency to trasform dataset into time series ##
 '''
-The pandas libray allow us to assign the frequency of set using it's method *asfreq()*  on dataframe object.
+The pandas library allow us to assign the frequency of set using it's method *asfreq()*  on dataframe object.
 The method can use different parameters:
 -) h => hours
 -) w => weekly
@@ -226,7 +226,7 @@ As basic, we use the *isna()* on dataframe to know if there are some null values
 '''
 print('-) DS isna() on original dataframe')
 print(pd_dataset.isna().sum() )
-print('-) DS isna() on dataset FTER asfreq() MODIFICATION for business days ')
+print('-) DS isna() on dataset AFTER asfreq() MODIFICATION for business days ')
 print(pd_dataset_compl.isna().sum() )
 '''
 IMPO NOTES: This means that changing frequency can produce a MISSING DATA when we analyze the dataset.
