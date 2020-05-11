@@ -46,5 +46,36 @@ s_dec_additive.plot()
 plt.show()
 
 '''
-The residuals are the difference between true values and  predictions for any period.
+Additive plot explanation:
+In this case, the observed series and trend look like the observed series.
+This because the decomposition function uses the previous period values
+as trend setter.
+
+The seasonal patterns we can observe other prices as better predictors.
+As example, we can determinate a better time indicator.
+If prices are higher at beginning of the mont compare to the end, we can use/compare values
+from 30 periods ago.
+
+The trend part of decomposition explains the variability of the data.
+ 
+ Seasonal part looks like a rectangular. This happens when values
+ oscillating up & down and the figure size is too small.
+ This means that is no concrete cyclical pattern when using naive decomposition.
+ 
+ Residual are errors of our model estimates.
+ Essentially they are the difference between true values and prediction for any periods.
+ If we note the graph, the residual are very great into 2000 and 2008, the two periods of great 
+ financial instability ( new millennium/house pricing bubble).
+ 
+ Using the additive approach on this data suggest no seasonality in data.
+'''
+#Multiplicative approach
+s_dec_multiplicative = seasonal_decompose(df.market_value, model="multiplicative")
+s_dec_multiplicative.plot()
+'''plt.title("Seasonality - Time Series spx", size=24)'''
+plt.show()
+'''
+For this dataset, also using multiplicative approach there is evidence of seasonality.
+
+This means that trend follows actual data closely next.
 '''
