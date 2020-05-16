@@ -82,7 +82,68 @@ with open("files/txt/english-proverbs.txt") as eng_proverb_file:
     print(eng_proverb_file.read())
 
 # If we read the file outside the context we have the same I/O Exception, we can't access the file.
-eng_proverb_file.read()
+#-> if we lunch this instruction we have I/O exception:
+#   eng_proverb_file.read()
+
+###################
+##  WRITE TO FILE
+###################
+'''
+Working with file, we have to manage permissions.
+We have the following attribute permissions:
+r   : is the default permission
+r+  :
+w   :
+w+  :
+a   :
+a+  :
+
+'''
+#Add
+#Using [a] permission type
+''' [a] for read
+eng_proverb_file = open("files/txt/english-proverbs.txt","a")
+print(eng_proverb_file.read());
+Traceback (most recent call last):
+  File "C:/pythonGithub/python/Python_NLP/2_Python_TXT_files.py", line 104, in <module>
+    print(eng_proverb_file.read());
+io.UnsupportedOperation: not readable
+'''
+# [a] fro write
+eng_proverb_file = open("files/txt/english-proverbs.txt","a")
+new_eng_proverb_01 = "\nPractice makes perfect."
+result = eng_proverb_file.write(new_eng_proverb_01)
+print("Byte written to file: " + str(result))
+eng_proverb_file.close()
+
+print("*) read after writing")
+eng_proverb_file = open("files/txt/english-proverbs.txt","a+")
+print(eng_proverb_file.readlines())
+'''
+a+ put the file cursor at the end of file, if we wanto to read using [a+] permission we need to
+use seek() method.
+'''
+print(" *) [a+] read after writing - seek()")
+eng_proverb_file.seek(0)
+print(eng_proverb_file.readlines())
+#
+new_eng_proverb_02 = "\nIf you can't beat 'em, join 'em."
+result = eng_proverb_file.write(new_eng_proverb_02)
+eng_proverb_file.close()
+
+### [CREATE A NEW FILE] - w+ permission
+eng_proverb_file = open("files/txt/english-proverbs.txt")
+eng_proverb_new_file = open("files/txt/english-new-proverbs.txt","w+")
+for i, proverb in enumerate(eng_proverb_file):
+    if(i>=3):
+        break
+    print(proverb)
+    eng_proverb_new_file.write(proverb)
+# Read new created file
+eng_proverb_new_file.seek(0)
+print(eng_proverb_new_file.readlines())
+eng_proverb_file.close()
+eng_proverb_new_file.close()
 
 
 ## ITA Proverb files ##
