@@ -37,8 +37,6 @@ print(search_result.group())
 ###
 print("REGEX Example - Phone number")
 textToAnalyze_01 = ("For information call this example number 123 456 7890.")
-textToAnalyze_02 = ("For information call this example number 123 456 7890. For coding information you also call "
-                 "this example number: .987 654 321.")
 
 rgx_pattern_simple_number_phone = r"\d\d\d \d\d\d \d\d\d\d"
 rgx_simple_result_01 = re.search(rgx_pattern_simple_number_phone, textToAnalyze_01)
@@ -79,6 +77,35 @@ IndexError: no such group
 
 -> print("Out 1 - group(4): " + rgx_simple_result_01.group(4))
 this expression generate exception.
+'''
+#Obtaining multiple result
+textToAnalyze_02 = ("For information call this example number +39 123-456-7890. For coding information you also call "
+                    "the following number: +39 098-765-4321")
+rgx_pattern_simple_number_phone = r"(\d{2}) (\d{3})-(\d{3}-\d{4})"
+multiple_search_result = re.findall(rgx_pattern_simple_number_phone, textToAnalyze_02)
+print(type(multiple_search_result))
+print(len(multiple_search_result) )
+#Progessing/accessing to list elements into python
+print(multiple_search_result)
+print(multiple_search_result[0])
+print(multiple_search_result[0][0])
+print(multiple_search_result[0][1])
+print(multiple_search_result[0][2])
+#
+print(multiple_search_result[1])
+print(multiple_search_result[1][0])
+print(multiple_search_result[1][1])
+print(multiple_search_result[1][2])
+#
+'''
+Accessing to a list with wrong index:
+
+Traceback (most recent call last):
+  File "C:/pythonGithub/python/Python_NLP/3_Regular_expression.py", line 100, in <module>
+    print(multiple_search_result[2])
+IndexError: list index out of range
+
+-> print(multiple_search_result[2]) this will trhrow exception
 '''
 
 
