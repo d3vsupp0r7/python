@@ -35,7 +35,7 @@ print(textToAnalize_slicing_1)
 print("*) Slicing using group() method")
 print(search_result.group())
 ###
-print("REGEX Example - Phone number")
+print("*** REGEX Example - Phone number ***")
 textToAnalyze_01 = ("For information call this example number 123 456 7890.")
 
 rgx_pattern_simple_number_phone = r"\d\d\d \d\d\d \d\d\d\d"
@@ -79,6 +79,7 @@ IndexError: no such group
 this expression generate exception.
 '''
 #Obtaining multiple result
+print("*** REGEX - Find/Manage multiple pattern result inside a string ***")
 textToAnalyze_02 = ("For information call this example number +39 123-456-7890. For coding information you also call "
                     "the following number: +39 098-765-4321")
 rgx_pattern_simple_number_phone = r"(\d{2}) (\d{3})-(\d{3}-\d{4})"
@@ -107,5 +108,100 @@ IndexError: list index out of range
 
 -> print(multiple_search_result[2]) this will trhrow exception
 '''
+# Manage variable patterns
+print("*** REGEX - Manage variable patterns ***")
+textToAnalyze_03 = ("For information call this example number +39 123-456-7890. For coding information you also call "
+                    "the following number: +39 098-7654-321")
+rgx_pattern_simple_number_phone = r"(\d{2}) (\d{3})-(\d{3,5}-\d{3,5})"
+multiple_search_result = re.findall(rgx_pattern_simple_number_phone, textToAnalyze_03)
+print(type(multiple_search_result))
+print(len(multiple_search_result) )
+#Progessing/accessing to list elements into python
+print(multiple_search_result)
+print(multiple_search_result[0])
+print(multiple_search_result[0][0])
+print(multiple_search_result[0][1])
+print(multiple_search_result[0][2])
+#
+print(multiple_search_result[1])
+print(multiple_search_result[1][0])
+print(multiple_search_result[1][1])
+print(multiple_search_result[1][2])
 
+### Managing email address
+print("*** REGEX - Manage variable patterns - EMAILS ***")
+textToAnalyze_04 = ("For information call send email to example01@example.com For coding information you also contact "
+                    "the following mail: sample_coding@example.com")
+simple_email_regex
+'''
+[] => valid set of character
++  => 
+\  => exape char 
+.  =>  
+\S => all char that not is a space
+\s => all char that are spaces
+\w => all alphanumeric chars
+^  => negation
+'''
+multiple_search_result_email = re.findall(simple_email_regex,textToAnalyze_04)
+print(type(multiple_search_result_email))
+print(len(multiple_search_result_email) )
+#Progessing/accessing to list elements into python
+print(multiple_search_result_email)
+print(multiple_search_result_email[0])
+print(multiple_search_result_email[0][0])
+print(multiple_search_result_email[0][1])
+print(multiple_search_result_email[0][2])
+#
+print(multiple_search_result_email[1])
+print(multiple_search_result_email[1][0])
+print(multiple_search_result_email[1][1])
+print(multiple_search_result_email[1][2])
 
+print("*) Regex with space management")
+rgx_patter_spaces = r"\S+@\S+"
+multiple_search_result_email = re.findall(rgx_patter_spaces,textToAnalyze_04)
+print(multiple_search_result_email)
+print(multiple_search_result_email[0])
+print(multiple_search_result_email[0][0])
+print(multiple_search_result_email[0][1])
+print(multiple_search_result_email[0][2])
+#
+print(multiple_search_result_email[1])
+print(multiple_search_result_email[1][0])
+print(multiple_search_result_email[1][1])
+print(multiple_search_result_email[1][2])
+
+print("*** REGEX - Removing patterns - ***")
+print("*) use sub() method")
+textToAnalyze_05 = ("Attention. For information call send email, call on phone, execute a skype call and etc... "
+                    "(Be sure to have a good reason !!! :) )")
+rgx_patter_special_chars = r"[!.,]"
+search_result = re.sub(rgx_patter_special_chars,'',textToAnalyze_05)
+print("Original text: ")
+print(textToAnalyze_05)
+#
+print("Modified text: ")
+print(search_result)
+#
+print("*** USE OPTIMIZE REGEX FOR punctuation characters")
+rgx_patter_special_chars = r"[^\w\s]"
+search_result = re.sub(rgx_patter_special_chars,'',textToAnalyze_05)
+print("Original text: ")
+print(textToAnalyze_05)
+#
+print("Modified text: ")
+print(search_result)
+## SPACES
+print("*** USE OPTIMIZE REGEX FOR removing spaces")
+textToAnalyze_06 = ("    Attention.     For         information call     send email, call         on     phone, "
+                    "        execute a skype call and         etc... "
+                    "(Be         sure to have a         good reason         "
+                    "            !!! :) )")
+rgx_patter_spaces = r" +"
+search_result = re.sub(rgx_patter_spaces,' ',textToAnalyze_06)
+print("Original text: ")
+print(textToAnalyze_06)
+#
+print("Modified text: ")
+print(search_result)
