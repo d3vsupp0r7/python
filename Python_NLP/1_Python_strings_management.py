@@ -89,4 +89,10 @@ count() method is case sensitive.
 print(str_var.count("String"))
 # 0 if string not contais the char
 print(str_var.count("Z"))
-print('#09 - String replace() method')
+###
+print('#10 - String replace() method')
+print("*) Replace example")
+str_var = 'This is an example String variable to use for Python Strings processing. Awesome!!! X :)'
+print(str_var)
+str_var = str_var.replace("Awesome","Excellent")
+print(str_var)
