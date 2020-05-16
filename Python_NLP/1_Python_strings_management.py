@@ -96,3 +96,61 @@ str_var = 'This is an example String variable to use for Python Strings processi
 print(str_var)
 str_var = str_var.replace("Awesome","Excellent")
 print(str_var)
+###
+print('#11 - String find() method')
+str_var = 'This is an example String variable to use for Python Strings processing. Awesome!!! X :)'
+#
+print(str_var.find('T'))
+print(str_var[0])
+print("*****")
+#
+print(str_var.find('A'))
+print(str_var[73])
+print("*****")
+#
+print(str_var.find('a'))
+print(str_var[8])
+print("*****")
+#
+print("*) Substring with find")
+# Obtain text from a char until the end
+subs_index = str_var.find('v')
+print("index: " + str(subs_index) )
+str_substring = str_var[subs_index:]
+print(str_substring)
+# obtain text up to the first point
+subs_end_index = str_var.find('.')
+print("index: " + str(subs_end_index) )
+str_substring = str_var[:subs_end_index]
+print(str_substring)
+# obtain text from dot to end
+subs_end_index = str_var.find('.')
+print("index: " + str(subs_end_index) )
+str_substring = str_var[subs_end_index:]
+print(str_substring)
+# no pattern present into string, find() will return -1
+print("*) find() no pattern was found (-1) ")
+subs_end_index = str_var.find('test')
+print("index: " + str(subs_end_index) )
+####
+print("*) Find from end: rfind() function")
+proverb = "Eye for eye, tooth for tooth"
+##Get first occurrence of pattern
+subs_index = proverb.find("tooth")
+print("index: " + str(subs_index) )
+print("*) rfind")
+subs_index = proverb.rfind("tooth")
+print("index: " + str(subs_index) )
+##
+print("*) Managing spaces into string: strip() function")
+proverb_strip_example = "         Eye for eye, tooth for tooth   "
+print("Lenght of proverb spaced string: " + str(len(proverb_strip_example) ) )
+print(proverb_strip_example.strip())
+print("     *) lstrip() ")
+proverb_lstrip_example = proverb_strip_example.lstrip()
+print(proverb_lstrip_example)
+print("Lenght of * lsprip * proverb spaced string: " + str(len(proverb_lstrip_example) ) )
+print("     *) rstrip() ")
+proverb_rstrip_example = proverb_strip_example.rstrip()
+print(proverb_rstrip_example)
+print("Lenght of * rsprip * proverb spaced string: " + str(len(proverb_rstrip_example) ) )
