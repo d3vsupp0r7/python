@@ -189,3 +189,12 @@ print('*) ITA TOKEN - VALID FILTERED')
 print(ita_tokens_filtered)
 print('*) ITA TOKEN - INVALID FILTERED')
 print(ita_tokens_removed_filtered)
+
+### STEMMING ###
+'''
+STEMMING (radice): 
+Stemming, we truncate final part of words based on a set of rules.
+
+The semming techinque is useful beacuse it can reduce to more unique words our test to analyze.
+This reduce complexity end computational costs.  
+'''
