@@ -247,6 +247,25 @@ for eng_token in eng_tokens:
     eng_tokens_snowball_stem.append(eng_token_stem_radix)
     print("%s\t\t%s" % (eng_token, eng_token_stem_radix) )
 
+print("*** ENG - Lancaster Stemmer algorithm ***")
+'''
+
+'''
+from nltk.stem import LancasterStemmer
+print("Original phrase")
+print(eng_textToAnalize_03)
+eng_tokens = word_tokenize(eng_textToAnalize_03)
+eng_lancaster_stemmer = LancasterStemmer()
+#Process snowball stem analisys
+eng_tokens_lancaster_stem = []
+print("TOKEN\t\tSTEM")
+for eng_token in eng_tokens:
+    eng_token_stem_radix = eng_lancaster_stemmer.stem(eng_token)
+    eng_tokens_lancaster_stem.append(eng_token_stem_radix)
+    print("%s\t\t%s" % (eng_token, eng_token_stem_radix) )
+
+
+
 print("*** ITA ***")
 ita_textToAnalize_02 = "Mi è piaciuto visitare gli Stati Uniti, in particolare correre con una moto sulla Route 66 per " \
                        "fare un classico viaggio su strada. Mi è piaciuto andare in giro con i miei amici, a guardare " \
