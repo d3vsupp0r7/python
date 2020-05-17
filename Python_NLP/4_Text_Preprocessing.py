@@ -203,8 +203,8 @@ This reduce complexity end computational costs.
 NLK Library offer stemming tools.
 '''
 from nltk.stem.porter  import PorterStemmer
-print("*** NLTK - Porter Stemmer algorithm")
-print("*** ENG ***")
+print("*** NLTK - Stemmer algorithms")
+print("*** ENG - Porter Stemmer algorithm ***")
 '''
 
 '''
@@ -233,6 +233,20 @@ for eng_token in eng_tokens:
     eng_tokens_stem.append(eng_token_stem_radix)
     print("%s\t\t%s" % (eng_token, eng_token_stem_radix) )
 
+print("*** ENG - Snowball Stemmer algorithm ***")
+from nltk.stem.snowball import SnowballStemmer
+print("Original phrase")
+print(eng_textToAnalize_03)
+eng_tokens = word_tokenize(eng_textToAnalize_03)
+eng_snowball_stemmer = SnowballStemmer("english")
+#Process snowball stem analisys
+eng_tokens_snowball_stem = []
+print("TOKEN\t\tSTEM")
+for eng_token in eng_tokens:
+    eng_token_stem_radix = eng_snowball_stemmer.stem(eng_token)
+    eng_tokens_snowball_stem.append(eng_token_stem_radix)
+    print("%s\t\t%s" % (eng_token, eng_token_stem_radix) )
+
 print("*** ITA ***")
 ita_textToAnalize_02 = "Mi è piaciuto visitare gli Stati Uniti, in particolare correre con una moto sulla Route 66 per " \
                        "fare un classico viaggio su strada. Mi è piaciuto andare in giro con i miei amici, a guardare " \
@@ -243,3 +257,25 @@ ita_textToAnalize_02 = "Mi è piaciuto visitare gli Stati Uniti, in particolare 
                        "Una birra ghiacciata, una buona vecchia canzone blues e i sogni diventano realtà."
 print(ita_textToAnalize_02)
 
+print("*** ITA - Snowball Stemmer algorithm ***")
+print(ita_textToAnalize_02)
+ita_tokens = word_tokenize(ita_textToAnalize_02)
+ita_snowball_stemmer = SnowballStemmer("italian")
+
+word_to_stem = "visitando"
+stem_out = ita_snowball_stemmer.stem(word_to_stem)
+print("*) Stem out for word: " + word_to_stem)
+print(stem_out)
+
+word_to_stem = "guardando"
+stem_out = ita_snowball_stemmer.stem(word_to_stem)
+print("*) Stem out for word: " + word_to_stem)
+print(stem_out)
+
+#Process snowball stem analisys
+ita_tokens_snowball_stem = []
+print("TOKEN\t\tSTEM")
+for ita_token in ita_tokens:
+    ita_token_stem_radix = ita_snowball_stemmer.stem(ita_token)
+    ita_tokens_snowball_stem.append(ita_token_stem_radix)
+    print("%s\t\t%s" % (ita_token, ita_token_stem_radix) )
