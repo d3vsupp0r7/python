@@ -1,0 +1,8 @@
+*) Subject Pronouns - I, you, he, she, it, they
+*) Object Pronouns - me, you, him, her, it
+*) Possessive Pronouns - my, mine, your, yours, his, her, hers, its
+*) Interrogative Pronouns - who, whom, whose, what, which
+*) Indefinite Pronouns - another, each, everything, nobody, either, someone
+*) Relative Pronouns - who, whom, whose, that, which
+*) Reflexive and Intensive Pronouns - myself, yourself, himself, herself, itself
+*) Demonstrative Pronouns - this, that
