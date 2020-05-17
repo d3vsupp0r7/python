@@ -195,6 +195,43 @@ print(ita_tokens_removed_filtered)
 STEMMING (radice): 
 Stemming, we truncate final part of words based on a set of rules.
 
-The semming techinque is useful beacuse it can reduce to more unique words our test to analyze.
+(*-ITA) STEMMIG: analisi di  radice e desinenza di una parola.
+
+The stemming technique is useful because it can reduce to more unique words our test to analyze.
 This reduce complexity end computational costs.  
+
+NLK Library offer stemming tools.
 '''
+from nltk.stem.porter  import PorterStemmer
+print("*** NLTK - Porter Stemmer algorithm")
+print("*** ENG ***")
+'''
+
+'''
+print("Original phrase")
+eng_textToAnalize_03 = "I'd loved to visit U.S.A, in particular running with a motorcycle on Route 66 making a classic" \
+                       " trip on the road. " \
+                       "I loved to be going around with my friends, watching the wild nature. " \
+                       "I've watched a lot of things, visiting and watching a lot of places, cooking on the roads. " \
+                       "We also have runned a lot of dangers expecially the night on desert places with only the breeze " \
+                       "to keep us company. " \
+                       "An ice cold beer, a good old blues song and the dreams become true."
+print(eng_textToAnalize_03)
+#
+eng_tokens = word_tokenize(eng_textToAnalize_03)
+eng_porter_stemmer = PorterStemmer()
+word_to_stem = "watching"
+stem_out = eng_porter_stemmer.stem(word_to_stem)
+print("*) Stem out for word: " + word_to_stem)
+print(stem_out)
+
+print("*** ITA ***")
+ita_textToAnalize_02 = "Mi è piaciuto visitare gli Stati Uniti, in particolare correre con una moto sulla Route 66 per " \
+                       "fare un classico viaggio su strada. Mi è piaciuto andare in giro con i miei amici, a guardare " \
+                       "la natura selvaggia. " \
+                       "Ho visto molte cose, visitando e guardando molti posti, cucinando per strada. " \
+                       "Abbiamo anche corso molti pericoli, specialmente la notte in luoghi deserti con solo " \
+                       "la brezza per farci compagnia. " \
+                       "Una birra ghiacciata, una buona vecchia canzone blues e i sogni diventano realtà."
+print(ita_textToAnalize_02)
+
