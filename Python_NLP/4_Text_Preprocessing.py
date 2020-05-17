@@ -56,7 +56,7 @@ print(nltk_eng_tokens)
 #
 print('*) Evaluate ENG complex phrase')
 eng_textToAnalize_02 = ("I'd love to visit U.S.A, in particular i want to run with a motorcycle on Route 66 making a classic trip on the road. "
-"I'd like to live the emotions like the Easy Rider film, watching the wild nature. But... i'cant. What a nice experience it would be!!!!")
+"I'd like to live the emotions like the Easy Rider film, watching the wild nature. But... i'can't. What a nice experience it would be!!!!")
 print(eng_textToAnalize_02)
 print(" ** NLTK TOKEN TYPE **")
 nltk_eng_tokens = word_tokenize(eng_textToAnalize_02)
@@ -107,5 +107,85 @@ Stop words are:
 *) congiunction
 *) prepositions
 *) pronouns
+*) common verbs
+
+So, if stop word, don't make valid a qualitative information on text, it's best practice to remove them 
+when we analyze text.
 
 '''
+
+from nltk.corpus import stopwords
+'''
+NTLK have library fro managing stopwords. In order to use this library, we need to download the appropriate
+package, with instruction:
+
+ntlk.download('stopwords')
+
+** THIS is one-timeoperation
+'''
+#nltk.download('stopwords')
+
+
+#
+print("** STOPWORDS RECAP **")
+print("** ENG **")
+nltk_eng_stopwords = stopwords.words('english')
+#
+print("*) English NLTK stopwords managed: " + str(len(nltk_eng_stopwords) ) )
+print("*) First 10 English NLTK stopwords: ")
+print(nltk_eng_stopwords[:10])
+print("*) First 100 English NLTK stopwords: ")
+print(nltk_eng_stopwords[:100])
+##
+print("** ITA **")
+nltk_ita_stopwords = stopwords.words('italian')
+print("*) Italian NLTK stopwords managed: " + str(len(nltk_ita_stopwords) ) )
+print("*) First 10 Italian NLTK stopwords: ")
+print(nltk_ita_stopwords[:10])
+print("*) First 100 Italian NLTK stopwords: ")
+print(nltk_ita_stopwords[:100])
+##
+#ENG - Remove stopwords
+
+print("** ENG - REMOVING STOPWORDS **")
+print(eng_textToAnalize_02)
+nltk_eng_stopwords = stopwords.words("english")
+nltk_eng_phrases_tokens = word_tokenize(eng_textToAnalize_02)
+print(nltk_eng_phrases_tokens)
+
+eng_tokes_filtered = []
+eng_tokes_removed_filtered = []
+
+for eng_token in nltk_eng_phrases_tokens:
+    if (eng_token.lower() not in nltk_eng_stopwords):
+        eng_tokes_filtered.append(eng_token)
+    else:
+        eng_tokes_removed_filtered.append(eng_token)
+
+print('*) ENG TOKEN - VALID FILTERED')
+print(eng_tokes_filtered)
+print('*) ENG TOKEN - INVALID FILTERED')
+print(eng_tokes_removed_filtered)
+
+
+print("** ITA - REMOVING STOPWORDS **")
+ita_textToAnalize_01 = ("Mi piacerebbe visitare gli Stati Uniti, in particolare voglio correre con una moto sulla Route 66 per fare un classico viaggio su strada. "
+"Mi piacerebbe vivere le emozioni come il film di Easy Rider, guardando la natura selvaggia. Ma ... non posso. Che bella esperienza sarebbe !!!!")
+
+nltk_ita_stopwords = stopwords.words("italian")
+nltk_ita_phrases_tokens = word_tokenize(ita_textToAnalize_01)
+print(ita_textToAnalize_01)
+
+ita_tokens_filtered = []
+ita_tokens_removed_filtered = []
+
+for ita_token in nltk_ita_phrases_tokens:
+    if (ita_token.lower() not in nltk_ita_stopwords):
+        ita_tokens_filtered.append(ita_token)
+    else:
+        ita_tokens_removed_filtered.append(ita_token)
+
+print('*) ITA TOKEN - VALID FILTERED')
+print(ita_tokens_filtered)
+print('*) ITA TOKEN - INVALID FILTERED')
+print(ita_tokens_removed_filtered)
