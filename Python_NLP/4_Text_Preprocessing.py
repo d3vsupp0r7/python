@@ -225,6 +225,14 @@ stem_out = eng_porter_stemmer.stem(word_to_stem)
 print("*) Stem out for word: " + word_to_stem)
 print(stem_out)
 
+#Process stem analisys
+eng_tokens_stem = []
+print("TOKEN\t\tSTEM")
+for eng_token in eng_tokens:
+    eng_token_stem_radix = eng_porter_stemmer.stem(eng_token)
+    eng_tokens_stem.append(eng_token_stem_radix)
+    print("%s\t\t%s" % (eng_token, eng_token_stem_radix) )
+
 print("*** ITA ***")
 ita_textToAnalize_02 = "Mi è piaciuto visitare gli Stati Uniti, in particolare correre con una moto sulla Route 66 per " \
                        "fare un classico viaggio su strada. Mi è piaciuto andare in giro con i miei amici, a guardare " \
