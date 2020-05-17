@@ -103,6 +103,9 @@ for i in range(len(nltk_eng_phrases_tokens)):
 '''
 Stop word are common use words that they do not bring any useful information to the text
 Stop words are:
-*) congiunction:
+*) adverbs
+*) congiunction
+*) prepositions
+*) pronouns
 
 '''
