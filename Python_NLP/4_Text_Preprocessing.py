@@ -426,6 +426,43 @@ print("*** LEMMATIZE SENTENCE - Paragraph 5 ***")
 eng_textToAnalize_03_paragraph_5 = "An ice cold beer, a good old blues song and the dreams become true."
 print(lemmatize_sentence(eng_textToAnalize_03_paragraph_5))
 
+### USING OF SPACY LIBRARY ###
+print("**********************")
+print("** SPACY LIBRARY")
+print("**********************")
+'''
+Spacy library
+*) for industrial purpose
+*) use only lemmatization process
+
+Af for nltk, we need to download the library itself.
+After we need to install the additionals packages to manage 
+'''
+import spacy
+#
+print("*) Original phrase")
+print(eng_textToAnalize_03_paragraph_1)
+spacy_en_nlp = spacy.load("en_core_web_sm")
+print("*) Spacy type")
+print(type(spacy_en_nlp))
+#processing
+spacy_processing_eng03_paragraph_1 = spacy_en_nlp(eng_textToAnalize_03_paragraph_1)
+print("*) Spacy processing output object type")
+print(type(spacy_processing_eng03_paragraph_1))
+# token inspection
+print("*) Spacy : TOKEN INSPECTION")
+print("Token [0]: " + str(spacy_processing_eng03_paragraph_1[0]) )
+print("Token [1]:" + str(spacy_processing_eng03_paragraph_1[1]) )
+print("Token [2]:" + str(spacy_processing_eng03_paragraph_1[2]) )
+print("Token [3]:" + str(spacy_processing_eng03_paragraph_1[3].text) )
+print("Token [4]:" + str(spacy_processing_eng03_paragraph_1[4].text) )
+
+print("*) Spacy : TOKEN Type")
+print(type(spacy_processing_eng03_paragraph_1[0]))
+
+print("*) Spacy : TOKENS lengths")
+print(str(len(spacy_processing_eng03_paragraph_1)) )
+
 ###
 print("**********************")
 print("**********************")

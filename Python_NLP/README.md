@@ -1,5 +1,10 @@
 # Python NLP
 
+# NLP Library
+
+## Spacy
+https://spacy.io/usage/models
+
 # Other Platforms
 
 ## Azure ML 
