@@ -1,0 +1,150 @@
+# eng_textToAnalize_01
+eng_textToAnalize_01 = "What is this haste? Let's do it again, okay?"
+
+# eng_textToAnalize_02
+("I'd love to visit U.S.A, in particular i want to run with a motorcycle on Route 66 making a classic trip on the road. "
+"I'd like to live the emotions like the Easy Rider film, watching the wild nature. But... i'can't. What a nice experience it would be!!!!")
+
+# eng_textToAnalize_03
+eng_textToAnalize_03 = "I'd loved to visit U.S.A, in particular running with a motorcycle on Route 66 making a classic" \
+                       " trip on the road. " \
+                       "I loved to be going around with my friends, watching the wild nature. " \
+                       "I've watched a lot of things, visiting and watching a lot of places, cooking on the roads. " \
+                       "We also have runned a lot of dangers expecially the night on desert places with only the breeze " \
+                       "to keep us company. " \
+                       "An ice cold beer, a good old blues song and the dreams become true."
+
+## Paragraph 1 - full phrase
+I'd loved to visit U.S.A, in particular running with a motorcycle on Route 66 making a classic trip on the road.
+-> LEMMATIZE SENTENCE - Paragraph 1 ***
+I 'd love to visit U.S.A , in particular run with a motorcycle on Route 66 make a classic trip on the road .
+
+
+## Paraghrap 1 - POS Token format
+("I",""),
+("'d",""),
+("loved",""),
+("to",""),
+("visit",""),
+("U.S.A",""),
+(",",""),
+("in",""),
+("particular",""),
+("running",""),
+("with",""),
+("a",""),
+("motorcycle",""),
+("on",""),
+("Route",""),
+("66",""),
+("making",""),
+("a",""),
+("classic",""),
+("trip",""),
+("on",""),
+("the",""),
+("road",""),
+(".",""),
+
+## Paraghrap 2 - full phrase
+I loved to be going around with my friends, watching the wild nature.
+-> LEMMATIZE SENTENCE - Paragraph 2 ***
+I love to be go around with my friend , watch the wild nature .
+
+## Paraghrap 2 -  - POS Token format
+("I",""),
+("loved",""),
+("to",""),
+("be",""),
+("going",""),
+("around",""),
+("with",""),
+("my",""),
+("friends",""),
+(",",""),
+("watching",""),
+("the",""),
+("wild",""),
+("nature",""),
+(".",""),
+
+## Paraghrap 3 - full phrase
+I've watched a lot of things, visiting and watching a lot of places, cooking on the roads.
+-> LEMMATIZE SENTENCE - Paragraph 3 ***
+I 've watch a lot of thing , visit and watch a lot of place , cook on the road .
+
+## Paraghrap 3  - POS Token format
+("I",""),
+("'ve",""),
+("watched",""),
+("a",""),
+("lot",""),
+("of",""),
+("things",""),
+(",",""),
+("visiting",""),
+("and",""),
+("watching",""),
+("a",""),
+("lot",""),
+("of",""),
+("places",""),
+(",",""),
+("cooking",""),
+("on",""),
+("the",""),
+("roads",""),
+(".",""),
+
+## Paraghrap 4 - full phrase
+We also have runned a lot of dangers expecially the night on desert places with only the breeze to keep us company.
+-> LEMMATIZE SENTENCE - Paragraph 4 ***
+We also have runned a lot of danger expecially the night on desert place with only the breeze to keep us company .
+
+## Paraghrap 4  - POS Token format
+"We",""),
+("also",""),
+("have",""),
+("runned",""),
+("a",""),
+("lot",""),
+("of",""),
+("dangers",""),
+("expecially",""),
+("the",""),
+("night",""),
+("on",""),
+("desert",""),
+("places",""),
+("with",""),
+("only",""),
+("the",""),
+("breeze",""),
+("to",""),
+("keep",""),
+("us",""),
+("company",""),
+(".",""),
+
+## Paraghrap 5 - full phrase
+An ice cold beer, a good old blues song and the dreams become true.
+-> LEMMATIZE SENTENCE - Paragraph 5 ***
+An ice cold beer , a good old blue song and the dreams become true .
+
+## Paraghrap 5  - POS Token format
+("An",""),
+("ice",""),
+("cold",""),
+("beer",""),
+(",",""),
+("a",""),
+("good",""),
+("old",""),
+("blues",""),
+("song",""),
+("and",""),
+("the",""),
+("dreams",""),
+("become",""),
+("true",""),
+(".",""),

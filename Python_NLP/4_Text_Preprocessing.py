@@ -121,10 +121,9 @@ package, with instruction:
 
 ntlk.download('stopwords')
 
-** THIS is one-timeoperation
+** THIS is one-time operation
 '''
 #nltk.download('stopwords')
-
 
 #
 print("** STOPWORDS RECAP **")
@@ -191,17 +190,28 @@ print('*) ITA TOKEN - INVALID FILTERED')
 print(ita_tokens_removed_filtered)
 
 ### STEMMING ###
+print("**********************")
+print("** STEMMING ")
+print("**********************")
 '''
 STEMMING (radice): 
 Stemming, we truncate final part of words based on a set of rules.
+As example, 
+Stem (root) is the part of the word to which you add inflectional (changing/deriving) affixes such as 
+(-ed,-ize, -s,-de,mis). So stemming a word or sentence may result in words that are not actual words. 
+Stems are created by removing the suffixes or prefixes used with a word.
+IMPO: Removing suffixes from a word is called Suffix Stripping
 
-(*-ITA) STEMMIG: analisi di  radice e desinenza di una parola.
+(*-ITA) STEMMING: analisi di  radice e desinenza di una parola.
 
 The stemming technique is useful because it can reduce to more unique words our test to analyze.
 This reduce complexity end computational costs.  
 
 NLK Library offer stemming tools.
 '''
+print("**********************")
+print("** STEMMING - ENG LANGUAGE")
+print("**********************")
 from nltk.stem.porter  import PorterStemmer
 print("*** NLTK - Stemmer algorithms")
 print("*** ENG - Porter Stemmer algorithm ***")
@@ -222,7 +232,7 @@ eng_tokens = word_tokenize(eng_textToAnalize_03)
 eng_porter_stemmer = PorterStemmer()
 word_to_stem = "watching"
 stem_out = eng_porter_stemmer.stem(word_to_stem)
-print("*) Stem out for word: " + word_to_stem)
+print("*) Stemmming: output for word: " + word_to_stem)
 print(stem_out)
 
 #Process stem analisys
@@ -264,7 +274,169 @@ for eng_token in eng_tokens:
     eng_tokens_lancaster_stem.append(eng_token_stem_radix)
     print("%s\t\t%s" % (eng_token, eng_token_stem_radix) )
 
+print("**********************")
+print("** LEMMATIZATION ")
+print("**********************")
+'''
+LEMMATIZATION
 
+LEMMATIZATION is a process to reduce word from they inflected form to a canonical. form.
+The canonical form is called "lemma". 
+This type of approach is more efficient.
+Lemmatizatition make analysis on a linguistic methodology. Analizyng the mean of 
+phrases with terms that means different things is important.
+This approach will be used as best practice when analyzing texts.
+
+As example:
+'Caring' -> Lemmatization -> 'Care'
+'Caring' -> Stemming -> 'Car'
+
+'''
+
+print("**********************")
+print("** LEMMATIZATION - ENG LANGUAGE ")
+print("**********************")
+'''
+Lemmatization using NLTK library
+
+To use a lemmer class of NLTK, we need to download additional NLTK package called
+WordNetLemmetizer.
+
+We can do this using the following instruction:
+
+nltk.download('wordnet')
+
+'''
+from nltk.stem import WordNetLemmatizer
+
+print("Original phrase")
+print(eng_textToAnalize_03)
+#1. Get tokens
+eng_tokens = word_tokenize(eng_textToAnalize_03)
+eng_lemmatizer = WordNetLemmatizer()
+
+word_to_lemmatize = "watching"
+lemma_out = eng_lemmatizer.lemmatize(word_to_lemmatize)
+print("*) Lemmatization: output for word: " + word_to_stem)
+print(lemma_out)
+
+print("*) First 10 English NLTK tokens: ")
+print(eng_tokens[:10])
+print("*** ENG NLTK LEMMA PROCESSING ***")
+print("*) ENG NLTK LEMMA PROCESSING: FIRST ITERATION")
+'''
+If we use WordNetLemmatizer as default, the text we are processing are treated as if it contains all nouns,
+as parts of the text are not recognized by default.
+'''
+eng_tokens_lemmas = []
+print("TOKEN\t\tLEMMA")
+for eng_token in eng_tokens:
+    eng_token_lemma = eng_lemmatizer.lemmatize(eng_token)
+    eng_tokens_lemmas.append(eng_token_lemma)
+    print("%s\t\t%s" % (eng_token, eng_token_lemma) )
+print("*) ENG NLTK LEMMA PROCESSING: SECOND ITERATION")
+'''
+Manually define part of text => Part Of Speech => POS
+n = nouns
+v = verbs
+a = adjective
+r = adverbs
+
+'''
+word_to_lemmatize = "watching"
+eng_single_token_tuple = [("watching","v")]
+eng_single_token_tuple_element = eng_single_token_tuple[0]
+lemma_out = eng_lemmatizer.lemmatize(eng_single_token_tuple_element[0],pos=eng_single_token_tuple_element[1])
+print("*) Lemmatization [with POS] out for word: " + word_to_stem)
+print(lemma_out)
+
+eng_textToAnalize_03_paragraph_1 =  ("I'd loved to visit U.S.A, in particular running with a motorcycle on Route 66 making a classic" \
+" trip on the road. ")
+
+#
+nltk_eng_phrases_tokens = word_tokenize(eng_textToAnalize_03)
+print(nltk_eng_phrases_tokens)
+
+print("*) Lemmatization [POS FULL TEST]: 1. Tokens printed and formatted: ")
+for i in range(len(nltk_eng_phrases_tokens)):
+    #print("Token [{}]: {}".format(i + 1, nltk_eng_tokens[i]))
+    print("(\""+nltk_eng_phrases_tokens[i]+"\",\"\")," )
+
+## eng_textToAnalize_03: Paraghrap 1
+nltk_eng_phrases_tokens = word_tokenize(eng_textToAnalize_03_paragraph_1)
+print(nltk_eng_phrases_tokens)
+
+print("*) Lemmatization [POS Paraghraph 1]: 1. Tokens printed and formatted: ")
+for i in range(len(nltk_eng_phrases_tokens)):
+    #print("Token [{}]: {}".format(i + 1, nltk_eng_tokens[i]))
+    print("(\""+nltk_eng_phrases_tokens[i]+"\",\"\")," )
+
+###
+'''
+nltk.download('averaged_perceptron_tagger')
+'''
+#nltk.download('averaged_perceptron_tagger')
+from nltk.corpus import wordnet
+lemmatizer = WordNetLemmatizer()
+
+# function to convert nltk tag to wordnet tag
+def nltk_tag_to_wordnet_tag(nltk_tag):
+    if nltk_tag.startswith('J'):
+        return wordnet.ADJ
+    elif nltk_tag.startswith('V'):
+        return wordnet.VERB
+    elif nltk_tag.startswith('N'):
+        return wordnet.NOUN
+    elif nltk_tag.startswith('R'):
+        return wordnet.ADV
+    else:
+        return None
+
+def lemmatize_sentence(sentence):
+    #tokenize the sentence and find the POS tag for each token
+    nltk_tagged = nltk.pos_tag(nltk.word_tokenize(sentence))
+    #tuple of (token, wordnet_tag)
+    wordnet_tagged = map(lambda x: (x[0], nltk_tag_to_wordnet_tag(x[1])), nltk_tagged)
+    lemmatized_sentence = []
+    for word, tag in wordnet_tagged:
+        if tag is None:
+            #if there is no available tag, append the token as is
+            lemmatized_sentence.append(word)
+        else:
+            #else use the tag to lemmatize the token
+            lemmatized_sentence.append(lemmatizer.lemmatize(word, tag))
+    return " ".join(lemmatized_sentence)
+
+print("*** LEMMATIZE SENTENCE - Paragraph 1 ***")
+print(lemmatize_sentence(eng_textToAnalize_03_paragraph_1))
+#
+print("*** LEMMATIZE SENTENCE - Paragraph 2 ***")
+eng_textToAnalize_03_paragraph_2 = "I loved to be going around with my friends, watching the wild nature."
+print(lemmatize_sentence(eng_textToAnalize_03_paragraph_2))
+#
+print("*** LEMMATIZE SENTENCE - Paragraph 3 ***")
+eng_textToAnalize_03_paragraph_3 = "I've watched a lot of things, visiting and watching a lot of places, cooking on the roads."
+print(lemmatize_sentence(eng_textToAnalize_03_paragraph_3))
+#
+print("*** LEMMATIZE SENTENCE - Paragraph 4 ***")
+eng_textToAnalize_03_paragraph_4 = "We also have runned a lot of dangers expecially the night on desert places with only the breeze to keep us company."
+print(lemmatize_sentence(eng_textToAnalize_03_paragraph_4))
+#
+print("*** LEMMATIZE SENTENCE - Paragraph 5 ***")
+eng_textToAnalize_03_paragraph_5 = "An ice cold beer, a good old blues song and the dreams become true."
+print(lemmatize_sentence(eng_textToAnalize_03_paragraph_5))
+
+###
+print("**********************")
+print("**********************")
+
+print("**********************")
+print("** STEMMING * ITA SECTION *")
+print("**********************")
+
+print("**********************")
+print("** STEMMING - ITALIAN LANGUAGE")
+print("**********************")
 
 print("*** ITA ***")
 ita_textToAnalize_02 = "Mi è piaciuto visitare gli Stati Uniti, in particolare correre con una moto sulla Route 66 per " \
@@ -283,12 +455,12 @@ ita_snowball_stemmer = SnowballStemmer("italian")
 
 word_to_stem = "visitando"
 stem_out = ita_snowball_stemmer.stem(word_to_stem)
-print("*) Stem out for word: " + word_to_stem)
+print("*) Stemming: output for word: " + word_to_stem)
 print(stem_out)
 
 word_to_stem = "guardando"
 stem_out = ita_snowball_stemmer.stem(word_to_stem)
-print("*) Stem out for word: " + word_to_stem)
+print("*) Stemming: output for word: " + word_to_stem)
 print(stem_out)
 
 #Process snowball stem analisys
@@ -298,3 +470,10 @@ for ita_token in ita_tokens:
     ita_token_stem_radix = ita_snowball_stemmer.stem(ita_token)
     ita_tokens_snowball_stem.append(ita_token_stem_radix)
     print("%s\t\t%s" % (ita_token, ita_token_stem_radix) )
+
+print("**********************")
+print("** LEMMATIZATION ")
+print("**********************")
+print("**********************")
+print("** LEMMATIZATION - ITA LANGUAGE ")
+print("**********************")
