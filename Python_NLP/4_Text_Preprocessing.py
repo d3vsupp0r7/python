@@ -463,6 +463,25 @@ print(type(spacy_processing_eng03_paragraph_1[0]))
 print("*) Spacy : TOKENS lengths")
 print(str(len(spacy_processing_eng03_paragraph_1)) )
 
+print("*) Spacy : PRINT ALL TOKENS")
+for token in spacy_processing_eng03_paragraph_1:
+    print(token.text)
+
+print("*) Spacy : PRINT ALL TOKENS with index")
+for i in range(len(spacy_processing_eng03_paragraph_1)):
+    print("Token [{}]: {}".format(i + 1, spacy_processing_eng03_paragraph_1[i]))
+
+print("*) Spacy : PRINT ALL sentences with index")
+sentences = spacy_processing_eng03_paragraph_1.sents
+for i,sents in enumerate(sentences):
+    print("Token [{}]: {}".format(i + 1, sents))
+
+print("*) Spacy : PRINT ALL sentences with index - [COMPLETE PHRASES WITH PARAGRAPH]")
+spacy_processing_eng03 = spacy_en_nlp(eng_textToAnalize_03)
+sentences = spacy_processing_eng03.sents
+for i,sents in enumerate(sentences):
+    print("Token [{}]: {}".format(i + 1, sents))
+
 ###
 print("**********************")
 print("**********************")
