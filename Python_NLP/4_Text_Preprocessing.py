@@ -471,8 +471,16 @@ print("*) Spacy : PRINT ALL TOKENS with index")
 for i in range(len(spacy_processing_eng03_paragraph_1)):
     print("Token [{}]: {}".format(i + 1, spacy_processing_eng03_paragraph_1[i]))
 
+'''
+Spacey sents
+-) sents type of spacy is a "generator" type, so we can't directly access to it's elements. 
+-) To access to it's element we can convert esnt to lis object
+'''
 print("*) Spacy : PRINT ALL sentences with index")
 sentences = spacy_processing_eng03_paragraph_1.sents
+print("*) Spacy sents type:")
+print(type(sentences))
+
 for i,sents in enumerate(sentences):
     print("Token [{}]: {}".format(i + 1, sents))
 
@@ -481,6 +489,23 @@ spacy_processing_eng03 = spacy_en_nlp(eng_textToAnalize_03)
 sentences = spacy_processing_eng03.sents
 for i,sents in enumerate(sentences):
     print("Token [{}]: {}".format(i + 1, sents))
+
+print("*) Spacey - convert sents to list object")
+sents_as_list = []
+for i,sents in enumerate(sentences):
+    print("Token [{}]: {}".format(i + 1, sents))
+    sents_as_list.append(sents)
+
+print(type(sents_as_list))
+print(str(len(sents_as_list) ) )
+
+for i in range(len(sents_as_list)):
+    print("Sentences [{}]: {}".format(i + 1, sents_as_list[i]))
+
+#result_as_list = list(sentences)
+#print(type(result_as_list))
+#print(str(len(result_as_list) ) )
+#print(result_as_list[0])
 
 ###
 print("**********************")
