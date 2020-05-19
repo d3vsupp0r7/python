@@ -490,11 +490,13 @@ sentences = spacy_processing_eng03.sents
 for i,sents in enumerate(sentences):
     print("Token [{}]: {}".format(i + 1, sents))
 
+# [?]
 print("*) Spacey - convert sents to list object")
 sents_as_list = []
 for i,sents in enumerate(sentences):
-    print("Token [{}]: {}".format(i + 1, sents))
     sents_as_list.append(sents)
+    print("Token [{}]: {}".format(i + 1, sents))
+
 
 print(type(sents_as_list))
 print(str(len(sents_as_list) ) )
@@ -502,10 +504,66 @@ print(str(len(sents_as_list) ) )
 for i in range(len(sents_as_list)):
     print("Sentences [{}]: {}".format(i + 1, sents_as_list[i]))
 
-#result_as_list = list(sentences)
-#print(type(result_as_list))
-#print(str(len(result_as_list) ) )
-#print(result_as_list[0])
+# Spacy lemmatization
+print("*) Spacy lemmatization")
+
+eng_tokens_lemmas = []
+print("TOKEN\t\tLEMMA")
+for spacy_eng_token in spacy_processing_eng03:
+    print("%s\t\t%s" % (spacy_eng_token.text, spacy_eng_token.lemma_) )
+'''
+
+*) pronouns not have a lemma, spacey indicate that with the 
+    appropriate tag: -PRON-
+
+IMPO: REMEMEBR TO USE spacy_eng_token.lemma_ , WITH UNDERSCORE, otherwise spacy
+will print the number that represent the hash value of lemma.
+'''
+print("*) Spacy lemmatization - HASH VALUE")
+
+eng_tokens_lemmas = []
+print("TOKEN\t\tLEMMA HASH")
+for spacy_eng_token in spacy_processing_eng03:
+    print("%s\t\t%s" % (spacy_eng_token.text, spacy_eng_token.lemma) )
+
+# STOPWORDS [ENG]
+print("*) Spacy stopwords")
+spacy_eng_stopwords_model = spacy_en_nlp.Defaults.stop_words
+print(" Spacy stopwords object type")
+print(type(spacy_eng_stopwords_model))
+
+print("*) Spacy stopwords length used for ENG")
+print(str(len(spacy_eng_stopwords_model)) )
+
+print("*) Spacy stopwords print")
+result = list(spacy_eng_stopwords_model)
+for i,current_stopword in enumerate(result):
+    print("Token [{}]: {}".format(i + 1, current_stopword))
+
+print("*) Spacy stopwords 10 elements")
+print(result[:10])
+
+print("TOKEN\t\tLEMMA\t\tIS_STOPWORDS")
+for spacy_eng_token in spacy_processing_eng03:
+    print("%s\t\t%s\t\t%s" % (spacy_eng_token.text, spacy_eng_token.lemma_,str(spacy_eng_token.is_stop)) )
+
+# Spacy - add all stopwords of phrase to a list
+spacy_paraghrap_list = []
+spacy_paraghrap_list_is_stop = []
+print("TOKEN\t\tLEMMA\t\tIS_STOPWORDS")
+for spacy_eng_token in spacy_processing_eng03:
+    if(not spacy_eng_token.is_stop):
+        spacy_paraghrap_list.append(spacy_eng_token)
+    else:
+        spacy_paraghrap_list_is_stop.append(spacy_eng_token)
+
+print("*) Spacy NO STOPWORDS 10 elements")
+print(spacy_paraghrap_list[:10])
+print(type(spacy_paraghrap_list[0]))
+print("*) Spacy STOPWORDS 10 elements")
+print(spacy_paraghrap_list_is_stop[:10])
+
+
 
 ###
 print("**********************")
@@ -558,3 +616,64 @@ print("**********************")
 print("**********************")
 print("** LEMMATIZATION - ITA LANGUAGE ")
 print("**********************")
+
+print("**********************")
+print("** SPACY - ITA LANGUAGE ")
+print("**********************")
+'''
+
+'''
+print("*) Original phrase")
+print(ita_textToAnalize_02)
+spacy_it_nlp = spacy.load("it_core_news_sm")
+
+print("*) Spacy [IT] : PRINT ALL sentences with index - [COMPLETE PHRASES WITH PARAGRAPH]")
+spacy_processing_it_02 = spacy_it_nlp(ita_textToAnalize_02)
+sentences = spacy_processing_it_02.sents
+for i,sents in enumerate(sentences):
+    print("Token [{}]: {}".format(i + 1, sents))
+
+# Spacy lemmatization
+print("*) Spacy [IT] lemmatization")
+
+it_tokens_lemmas = []
+print("TOKEN\t\tLEMMA")
+for spacy_it_token in spacy_processing_it_02:
+    print("%s\t\t%s" % (spacy_it_token.text, spacy_it_token.lemma_) )
+
+# STOPWORDS [ITA]
+print("*) Spacy [IT] stopwords")
+spacy_it_stopwords_model = spacy_it_nlp.Defaults.stop_words
+print(" Spacy [IT] stopwords object type")
+print(type(spacy_it_stopwords_model))
+
+print("*) Spacy [IT] stopwords length used for ENG")
+print(str(len(spacy_it_stopwords_model)) )
+
+print("*) Spacy [IT] stopwords print")
+result = list(spacy_it_stopwords_model)
+for i,current_stopword in enumerate(result):
+    print("Token [{}]: {}".format(i + 1, current_stopword))
+
+print("*) Spacy [IT] stopwords 10 elements")
+print(result[:10])
+
+print("TOKEN\t\tLEMMA\t\tIS_STOPWORDS")
+for spacy_it_token in spacy_processing_it_02:
+    print("%s\t\t%s\t\t%s" % (spacy_it_token.text, spacy_it_token.lemma_,str(spacy_it_token.is_stop)) )
+
+# Spacy - add all stopwords of phrase to a list
+spacy_paraghrap_list = []
+spacy_paraghrap_list_is_stop = []
+print("TOKEN\t\tLEMMA\t\tIS_STOPWORDS")
+for spacy_it_token in spacy_processing_it_02:
+    if(not spacy_it_token.is_stop):
+        spacy_paraghrap_list.append(spacy_it_token)
+    else:
+        spacy_paraghrap_list_is_stop.append(spacy_it_token)
+
+print("*) Spacy [IT] NO STOPWORDS 10 elements")
+print(spacy_paraghrap_list[:10])
+print(type(spacy_paraghrap_list[0]))
+print("*) Spacy [IT] STOPWORDS 10 elements")
+print(spacy_paraghrap_list_is_stop[:10])
