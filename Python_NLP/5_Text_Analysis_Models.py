@@ -235,3 +235,131 @@ for sent,bow in zip(corpus,corpus_bow):
     print("Sentence: ", sent)
     print("Bag of word: ", bow)
     print("----------")
+
+### BAG OF WORD - END
+################
+################
+
+################
+################
+### TF*IDF - START
+'''
+TF*IDF
+Term Frequency * Inverse Document Frequency
+
+In this type of modelling, we have penalty fro common words ang give more weigth to
+rare words.
+
+[*] Term Frequency             => measure frequency of every term into document
+[*] Inverse Document Frequency => measure the importance ov every term inside the all document.
+
+'''
+
+
+### TF*IDF - START
+################
+################
+print("### TF*IDF ###")
+print("*) original words")
+print(corpus)
+#1. Determinate the Document frequency
+'''
+[*] Document frequency: How many documents contains a certain word
+
+IDF = log(num of docs/Document frequency)
+
+[*] Term frequency
+To calculate "term frequency" we need to remove stopwords.
+Thi is specific for every document.
+From the cleaned text, we calculate, for each paragraph the term frequency as follow:
+
+(number of time word appears into document)
+------------------------------------------
+(number total of wors inside the document)
+'''
+print("### TF*IDF using numpy")
+corpus_tokens = corpus_tokenizer(corpus)
+index_to_word = build_vocabulary(corpus_tokens)
+word_to_index = dict([word,i] for i,word in enumerate(index_to_word))
+docs_count = len(corpus)
+vocab_size = len(index_to_word)
+
+#1. Document frequency
+df = np.zeros(vocab_size)
+print(df.shape)
+for i,word in enumerate(index_to_word):
+    for tokens in corpus_tokens:
+        if(word in tokens):
+            df[i]+=1
+
+print(index_to_word)
+print(df)
+
+# Inverse document frequency
+idf = np.log(docs_count/df)+1
+print("*) IDF")
+print(idf)
+print(type(idf) )
+print(str(len(idf) ) )
+
+# Term frequency
+tf = np.zeros((docs_count,vocab_size))
+
+for i,tokens in enumerate(corpus_tokens):
+    word_counts = len(tokens)
+    for token in tokens:
+        tf[i][word_to_index[token]]+=1
+    tf[i]/=word_counts
+
+print("*) TF*IDF result")
+print(tf)
+
+print("*) Final output TF*IDF")
+tf_idf = tf*idf
+print(tf_idf)
+
+print("## Notes")
+print(tf.shape)
+print(idf.shape)
+
+def tf_idf(corpus, return_vocab=False):
+    corpus_tokens = corpus_tokenizer(corpus)
+    index_to_word = build_vocabulary(corpus_tokens)
+    word_to_index = dict([word, i] for i, word in enumerate(index_to_word))
+    #
+    docs_count = len(corpus)
+    vocab_size = len(index_to_word)
+    # 1. Document frequency
+    df = np.zeros(vocab_size)
+    for i, word in enumerate(index_to_word):
+        for tokens in corpus_tokens:
+            if (word in tokens):
+                df[i] += 1
+    #Inverse Document Frequency
+    idf = np.log(docs_count/df)+1
+    # Term frequency
+    tf = np.zeros((docs_count, vocab_size))
+
+    for i, tokens in enumerate(corpus_tokens):
+        word_counts = len(tokens)
+        for token in tokens:
+            tf[i][word_to_index[token]] += 1
+        tf[i] /= word_counts
+    #tf*idf
+    tf_idf = tf * idf
+    if (return_vocab):
+        return tf_idf, index_to_word
+    else:
+        return tf_idf
+
+corpus_tfidf, vocab = tf_idf(corpus, return_vocab=True)
+print("*) TF*IDF vocab")
+print(vocab)
+
+for sent,tfidf in zip(corpus,corpus_tfidf):
+    print("Sentence: ", sent)
+    print("TF-IDF: ", tfidf)
+    print("----------")
+'''
+
+'''
