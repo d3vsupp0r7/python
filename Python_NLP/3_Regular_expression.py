@@ -205,3 +205,48 @@ print(textToAnalyze_06)
 #
 print("Modified text: ")
 print(search_result)
+
+## Regular expression: split() method
+print("*** REGEX - split() method ***")
+print("*) split() simple example [d+]: no number ")
+string = 'Twelve:12 Eighty nine:89.'
+pattern = '\d+'
+result = re.split(pattern, string)
+print(result)
+print("*) split() simple example [D+]: only numbers")
+string = 'Twelve:12 Eighty nine:89.'
+pattern = '\D+'
+result = re.split(pattern, string)
+print(result)
+
+print("*) split() simple example [W+]: ")
+pattern = '\W+'
+result = re.split(pattern, string)
+print(result)
+
+print("*) split() simple example [w+]: ")
+pattern = '\w+'
+result = re.split(pattern, string)
+print(result)
+
+#
+print("*) split() method with complex text: [W+]")
+pattern = '\W+'
+eng_textToAnalize_01 = "I'd loved to visit U.S.A, in particular running with a motorcycle on Route 66 making a classic" \
+                       " trip on the road. " \
+                       "I loved to be going around with my friends, watching the wild nature. " \
+                       "I've watched a lot of things, visiting and watching a lot of places, cooking on the roads. " \
+                       "We also have runned a lot of dangers expecially the night on desert places with only the breeze " \
+                       "to keep us company. " \
+                       "An ice cold beer, a good old blues song and the dreams become true."
+
+result = re.split(pattern, eng_textToAnalize_01)
+print(result)
+
+print("Split using single \\ example")
+result_one = re.split("\W+", eng_textToAnalize_01)
+print(result_one)
+
+print("Split using double \\ example")
+result_two = re.split("\\W+", eng_textToAnalize_01)
+print(result_two)
