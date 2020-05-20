@@ -173,11 +173,28 @@ print(tabulate(pd_dataset))
 y = pd_dataset[pd_dataset.columns[-3:]]
 print(tabulate(y))
 
+'''
+IMPO:
+VADER model is incorent. See that review of
+2,3 review have 2.0 point. This means wrong weight for the meaning of phrase.
+
+'''
+############
+## SENTIMENT ANALISYS USING MACHINE LEARNING
+print("## SENTIMENT ANALISYS USING MACHINE LEARNING")
+
+## LINEAR REGRESSION AND LOGISTIC REGRESSION
+'''
+Regression: model outpu si a continue variable ( a number)
+-> Residual sum of squares
+'''
+##
+
 #############
 #############
 #############
 print("*********************************************")
-## Example 2 -
+## Simple Example 2
 from nltk.sentiment.vader import SentimentIntensityAnalyzer as SIA
 sentences=["hello","why is it not working?!"]
 sid = SIA()
