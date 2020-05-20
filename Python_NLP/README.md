@@ -15,3 +15,7 @@ https://spacy.io/usage/models
 # Online tools
 # POS - PArt Of Speech
 https://parts-of-speech.info/
+
+# Other Resources
+## Chatbot
+*) https://www.atlassian.com/atlascamp/2017/archives/build-addons/how-to-write-a-chatbot-that-gets-smarter
