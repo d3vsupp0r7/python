@@ -116,10 +116,10 @@ when we analyze text.
 
 from nltk.corpus import stopwords
 '''
-NTLK have library fro managing stopwords. In order to use this library, we need to download the appropriate
+NTLK have library for managing stopwords. In order to use this library, we need to download the appropriate
 package, with instruction:
 
-ntlk.download('stopwords')
+nltk.download('stopwords')
 
 ** THIS is one-time operation
 '''
@@ -207,7 +207,7 @@ IMPO: Removing suffixes from a word is called Suffix Stripping
 The stemming technique is useful because it can reduce to more unique words our test to analyze.
 This reduce complexity end computational costs.  
 
-NLK Library offer stemming tools.
+NLTK Library offer stemming tools.
 '''
 print("**********************")
 print("** STEMMING - ENG LANGUAGE")
