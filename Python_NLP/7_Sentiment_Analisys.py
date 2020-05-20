@@ -119,6 +119,59 @@ print("\t punctuation example")
 text_01="I LOVE!!! this app, even if user interface is poor"
 result = eng_nltk_sa_class.polarity_scores(text_01)
 print(result)
+## DATASET
+print("## SENTIMENTAL ANALYSIS USIGN CSV DATASETS ##")
+import pandas as pd
+pd_dataset = pd.read_csv("dataset/sentiment_analisys/01_sentiment_analysis_reviews.csv",sep=";")
+print("*) Print PANDAS dataset head()")
+print(pd_dataset.head())
+
+full_review = pd_dataset["title"]+" " + pd_dataset["review"]
+print(type(full_review))
+print(full_review.head())
+#
+print("** first review")
+print(full_review.loc[0])
+
+print("** VADER ANALISYS ON FIRST REVIEW")
+result = eng_nltk_sa_class.polarity_scores(full_review.loc[0])
+print(result)
+
+#
+print("** VADER ANALISYS ON OVER-ALL REVIEW")
+pd_dataset["sentiment score"] = full_review.apply(lambda pd_dataset: eng_nltk_sa_class.polarity_scores(pd_dataset)["compound"])
+print(pd_dataset.head())
+
+print(pd_dataset.describe())
+
+# Adding LABEL to SCORE REVIEW
+def sentiment_to_label(sentiment_value):
+    if (sentiment_value <= -0.75):
+        return "strongly negative"
+    elif (sentiment_value <= -0.5):
+        return "very negative"
+    elif (sentiment_value <= -0.25):
+        return "rather negative"
+    elif (sentiment_value <= 0):
+        return "negative"
+    elif (sentiment_value <= 0.25):
+        return "rather positive"
+    elif (sentiment_value <= 0.5):
+        return "positive"
+    elif (sentiment_value <= 0.75):
+        return "very positive"
+    elif (sentiment_value > 0.75):
+        return "strongly positive"
+    return "ERROR"
+
+pd_dataset["sentiment label"] = pd_dataset["sentiment score"].apply(lambda sentiment: sentiment_to_label(sentiment))
+print(pd_dataset.head())
+
+#Pretty format pandas dataframe on last [x] columns
+from tabulate import tabulate
+print(tabulate(pd_dataset))
+y = pd_dataset[pd_dataset.columns[-3:]]
+print(tabulate(y))
 
 #############
 #############
