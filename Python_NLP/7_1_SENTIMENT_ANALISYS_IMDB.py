@@ -29,13 +29,19 @@ for label in labels:
         reviews.append(review)
         sentiment_result.append(label_map[label])
 #
+print("*) First review")
 print(reviews[0])
+print("*) Last review")
 print(reviews[-1])
 
+print("*) First 3 review")
 print(reviews[:3])
+print("*) last 3 review")
 print(reviews[-3:])
 
+print("*) First 10 sentiment result")
 print(sentiment_result[:10])
+print("*) Last 10 sentiment result")
 print(sentiment_result[-10:])
 
 ##
@@ -46,10 +52,11 @@ def load_sentiments_files(path,labels=["pos","neg"]):
     sentiment_result = []
     #labels = ["pos","neg"]
     label_map = {"pos":1,"neg":0}
+    param_path = path
 
     for label in labels:
         #path = ds_files_path+"/"+label
-        path = path +"/"+ label
+        path += "/"+ label
         print("path search fun: " + path)
         for file in listdir(path):
             review_file = open(path+"/"+file,encoding="utf-8")
@@ -59,15 +66,21 @@ def load_sentiments_files(path,labels=["pos","neg"]):
             #
             reviews.append(review)
             sentiment_result.append(label_map[label])
-            #
+        path = param_path
     return (reviews,sentiment_result)
 #
 
 print(ds_files_path+"train")
 print(ds_files_path+"test")
 reviews_train,y_train = load_sentiments_files(ds_files_path+"train")
+
+print("*) First 10 review data")
 print(reviews_train[:2])
 print(y_train[:2])
+print("*) Last 2 review data")
+print(reviews_train[-2:])
+print(y_train[-2:])
+#
 reviews_test,y_test = load_sentiments_files(ds_files_path+"test")
 print(reviews_test[:2])
 print(y_test[:2])
