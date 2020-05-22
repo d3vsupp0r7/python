@@ -257,6 +257,8 @@ for eng_token in eng_tokens:
     eng_tokens_snowball_stem.append(eng_token_stem_radix)
     print("%s\t\t%s" % (eng_token, eng_token_stem_radix) )
 
+
+
 print("*** ENG - Lancaster Stemmer algorithm ***")
 '''
 
@@ -426,6 +428,48 @@ print("*** LEMMATIZE SENTENCE - Paragraph 5 ***")
 eng_textToAnalize_03_paragraph_5 = "An ice cold beer, a good old blues song and the dreams become true."
 print(lemmatize_sentence(eng_textToAnalize_03_paragraph_5))
 
+# SINGLE PHRASE STEM
+print("## SINGLE PHRASE MANAGEMENT ##")
+print("*) Token, Stopwords management, Stemming and lemmatization a single phrase")
+text = "We love studying machine learning. We have learned a lot of things."
+print("*) Original Phrase")
+print(text)
+nltk_eng_phrases_tokens = word_tokenize(text)
+print("*) Tokens")
+print(nltk_eng_phrases_tokens)
+print("\tTokens size: " + str(len(nltk_eng_phrases_tokens)))
+eng_tokens = word_tokenize(text)
+eng_snowball_stemmer = SnowballStemmer("english")
+eng_tokes_filtered = []
+eng_tokes_removed_filtered = []
+print("*) Stopwords removing")
+for eng_token in nltk_eng_phrases_tokens:
+    if (eng_token.lower() not in nltk_eng_stopwords):
+        eng_tokes_filtered.append(eng_token)
+    else:
+        eng_tokes_removed_filtered.append(eng_token)
+
+print('\t*) ENG PHRASE - NO STOPWORDS')
+print("\t"+str(eng_tokes_filtered))
+print("\tPhrase no stopword size: " + str(len(eng_tokes_filtered)))
+print('\t*) ENG PHRASE - STOPWORDS REMOVED')
+print("\t"+str(eng_tokes_removed_filtered) )
+print("\tStopword removed size: " + str(len(eng_tokes_removed_filtered)))
+
+# Stem
+print("*) Stemming")
+eng_tokens_snowball_stem = []
+print("TOKEN\t\tSTEM")
+for eng_token in eng_tokens:
+    eng_token_stem_radix = eng_snowball_stemmer.stem(eng_token)
+    eng_tokens_snowball_stem.append(eng_token_stem_radix)
+    print("%s\t\t%s" % (eng_token, eng_token_stem_radix) )
+print("\tStemming size: " + str(len(eng_tokens_snowball_stem)))
+
+print("*) Lemmatization")
+print(lemmatize_sentence(text))
+
+##
 ### USING OF SPACY LIBRARY ###
 print("**********************")
 print("** SPACY LIBRARY")
