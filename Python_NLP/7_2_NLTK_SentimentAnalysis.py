@@ -37,7 +37,11 @@ def get_dataset(files_path, labels=["pos","neg"], samples_per_class=None):
 ds_files_path = "C:/dev/nlp_dataset/nlp_ml_dataset_aclImdb/"
 train_set = get_dataset(ds_files_path+"train",samples_per_class=1000)
 #train_set = get_dataset(ds_files_path+"train",samples_per_class=500)
+print("*) Dataset type:")
+print(type(train_set))
+print("*) Dataset length:")
 print(len(train_set))
+print("*) Dataset: print the first value")
 print(train_set[0])
 '''
 Example result:
