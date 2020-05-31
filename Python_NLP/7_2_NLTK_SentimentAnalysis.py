@@ -90,7 +90,7 @@ print(accuracy_result_test)
 
 '''
 IMPO:
-NLTK give us the change to check wha are the feature (word) most significant for our model.
+NLTK give us the chance to check what are the feature (word) most significant for our model.
 
 This feature gibve information with following tag:
  neg : pos    =     17.0 : 1.0
