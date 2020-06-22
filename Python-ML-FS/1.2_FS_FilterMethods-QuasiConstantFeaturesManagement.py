@@ -156,13 +156,73 @@ execute the above script, you will see that both our training and test sets will
 since the 50 constant columns have been removed.
 '''
 # 0.1 indicates 99% of observations approximately
+pd_train_dataset_reduced = pd.read_csv(ds_filename_train, nrows=50000)
+print("*) Split dataset data into test and train dataset")
+X_train, X_test, y_train, y_test = train_test_split(
+pd_train_dataset_reduced.drop(labels=['TARGET'], axis=1),
+pd_train_dataset_reduced['TARGET'],
+test_size=0.3,
+random_state=0)
+
 sel_2 = VarianceThreshold(threshold=0.01)
 sel_2.fit(X_train)  # fit finds the features with low variance
 print("*) Number of feature that are NOT QUASI-CONSTANT using get_support() on VarianceThreshold")
 print(sum(sel_2.get_support()))
-
 constant_columns = [column for column in X_train.columns
                     if column not in X_train.columns[sel_2.get_support()]]
 print("*) Names of quasi-constant features")
 for column in constant_columns:
     print(column)
+
+#Sort
+print("** SORT **")
+constant_columns.sort()
+print(constant_columns)
+for column in constant_columns:
+    print(column)
+#Sorting string with numbers inside
+import re
+def atoi(text):
+    return int(text) if text.isdigit() else text
+def natural_keys(text):
+    return [ atoi(c) for c in re.split('(\d+)',text) ]
+constant_columns.sort(key=natural_keys)
+print("** SORT WITH STRING AND NUMBERS **")
+for column in constant_columns:
+    print(column)
+#############
+print('## Info for variable')
+print(X_train['ind_var31'].value_counts()/np.float(len(X_train)))
+###
+X_train = sel_2.transform(X_train)
+X_test = sel_2.transform(X_test)
+print("\t*) TRAIN DATASET DIMENSION")
+print(X_train.shape)
+print("\t*) TEST DATASET DIMENSION")
+print(X_test.shape)
+
+print("***************************")
+print("** TRAIN DATASET - QUASI-CONSTANT FEATURE REMOVAL - ANOTHER APPROACH")
+print("***************************")
+print("[1] Load data")
+pd_train_dataset_reduced = pd.read_csv(ds_filename_train, nrows=50000)
+print("[2] Split dataset data into test and train dataset")
+X_train, X_test, y_train, y_test = train_test_split(
+pd_train_dataset_reduced.drop(labels=['TARGET'], axis=1),
+pd_train_dataset_reduced['TARGET'],
+test_size=0.3,
+random_state=0)
+
+print("\t*) Number of constant feature into train dataset")
+constant_features = [
+    feat for feat in X_train.columns if X_train[feat].std() == 0]
+print(len(constant_features))
+
+print("\t*) Dropping constant features from TRAIN DATASET")
+# we can then drop these columns from the train and test sets
+X_train.drop(labels=constant_features, axis=1, inplace=True)
+X_test.drop(labels=constant_features, axis=1, inplace=True)
+print("\t*) TRAIN DATASET DIMENSION")
+print(X_train.shape)
+print("\t*) TEST DATASET DIMENSION")
+print(X_test.shape)
